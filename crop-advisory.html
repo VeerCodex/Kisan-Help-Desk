@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Crop Advisory — Kissan Help Desk</title>
+
+  <!-- Crop page CSS -->
+  <link rel="stylesheet" href="crop.css">
+  <link rel="stylesheet" href="navbar.css">
+</head>
+<body class="crop-page">
+
+  <!-- HERO (compact) -->
+  <header class="hero" id="hero">
+    <div class="overlay"></div>
+    <div class="topbar" id="topbar">
+      <div class="brand" onclick="location.href='index.html'" role="button" aria-label="Home">
+        <img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+             alt="Kissan logo">
+        <div class="sitename">Kissan Help Desk</div>
+      </div>
+      
+      <nav class="main-nav" id="mainNav">
+        <!-- Will be dynamically populated by navbar.js -->
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+
+      <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <!-- Will be dynamically populated by navbar.js -->
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="crop-section from-right" id="overview">
+      <div class="col-media" style="background-image:url('https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=600&q=80');"></div>
+      <div class="col-body">
+        <h2>Crop Advisory — Practical guidance for farmers</h2>
+        <p class="lead">We give short, localised, season-wise advice so you can choose right variety, sow at the right time and manage inputs efficiently.</p>
+        <p>Below are focused advisory modules — each module slides in from left or right as you scroll. Click "Open Form" to submit your field details for personalised recommendations.</p>
+        <p><a class="btn" href="crop-form.html">Open Form</a></p>
+      </div>
+    </section>
+
+    <!-- SECTION: SOWING (image left, text right) -->
+    <section class="crop-section from-left" id="sowing">
+      <div class="col-media" style="background-image:url('https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=600&q=80');"></div>
+      <div class="col-body">
+        <h3>Sowing & Variety Selection</h3>
+        <p>Choose varieties adapted to your zone. Sow at the recommended window to avoid heat or unseasonal rains. Maintain recommended spacing for yield and disease control.</p>
+        <ul>
+          <li>Check certified seed sources</li>
+          <li>Sow within the recommended sowing window for your district</li>
+          <li>Follow spacing guidelines to reduce pest pressure</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION: IRRIGATION (image right, text left) -->
+    <section class="crop-section from-right" id="irrigation">
+      <div class="col-media" style="background-image:url('https://images.unsplash.com/photo-1563514220747-a32653e09040?auto=format&fit=crop&w=600&q=80');"></div>
+      <div class="col-body">
+        <h3>Irrigation & Water Management</h3>
+        <p>Use soil moisture checks and simple rules of thumb to schedule irrigation — avoid overwatering, maintain aeration and reduce fertilizer losses.</p>
+        <ul>
+          <li>Check soil by touch (2–4 inch depth)</li>
+          <li>Prefer split irrigations over heavy single doses</li>
+          <li>Mulch to conserve moisture</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION: PESTS (image left, text right) -->
+    <section class="crop-section from-left" id="pest">
+      <div class="col-media" style="background-image:url('https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&w=600&q=80');"></div>
+      <div class="col-body">
+        <h3>Pest & Disease Management</h3>
+        <p>Monitor fields weekly. Use threshold-based action: only spray when pests exceed economic thresholds and prefer biocontrols where possible.</p>
+        <ul>
+          <li>Field scouting once a week</li>
+          <li>Use pheromone traps for monitoring</li>
+          <li>Follow recommended protective equipment and safe dosages</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION: FERTILIZER (image right, text left) -->
+    <section class="crop-section from-right" id="fertilizer">
+      <div class="col-media" style="background-image:url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=600&q=80');"></div>
+      <div class="col-body">
+        <h3>Fertilizer Guidance</h3>
+        <p>Right dose at the right time. Use soil test results where available; otherwise follow crop-specific blanket recommendations adapted to growth stage.</p>
+        <ul>
+          <li>Top-dress nitrogen as per crop stage</li>
+          <li>Split doses reduce losses</li>
+          <li>Apply micronutrients if deficiency symptoms appear</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- footer -->
+  <footer class="crop-footer">
+    <div class="footer-brand">
+      <img class="brand-logo-small" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="logo">
+      <strong>Kissan Help Desk</strong>
+    </div>
+    <div class="copyright">© 2025 Kissan Help Desk — All Rights Reserved</div>
+  </footer>
+
+  <script src="crop.js"></script>
+  <script src="navbar.js"></script>
+</body>
+</html>

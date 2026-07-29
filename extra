@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kissan Help Desk</title>
+
+  <!-- Link to external CSS (keep styles.css in same folder) -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- NOTE: If you store images locally, put them in images/ and update src/background URLs below -->
+</head>
+
+<body>
+
+<header class="hero" id="hero">
+  <div class="overlay"></div>
+
+  <div class="topbar" id="topbar">
+    <div class="brand" onclick="location.href='/'" role="button" aria-label="Home">
+      <!-- LOGO: Change src to 'images/logo.png' if you store locally -->
+      <img class="logo" src="https://cdn.discordapp.com/attachments/1411958405609820283/1448630069835726938/imgi_1_44dfc08e-c53e-4f0f-a00d-ebe781935e6c-removebg-preview.png?ex=693bf562&is=693aa3e2&hm=c3c8172963bebd8920a30117652dcb5106b42bfcbcbbc540355dc0c9d1307f2b"
+           alt="Kissan logo">
+      <div class="sitename">Kissan Help Desk</div>
+    </div>
+
+    <!-- Main nav: update href to your pages (about.html etc) -->
+    <nav class="main-nav" aria-label="Primary nav" id="mainNav">
+      <a href="about.html">About Us</a>
+      <a href="crop-advisory.html">Crop Advisory</a>
+      <a href="fertilizer.html">Fertilizer &amp; Pesticide</a>
+      <a href="weather.html">Weather</a>
+      <a href="marketplace.html">Marketplace</a>
+      <a href="profile.html">Farmer Profile</a>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+
+    <!-- Mobile menu (hidden by default) -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <a href="about.html">About Us</a>
+      <a href="crop-advisory.html">Crop Advisory</a>
+      <a href="fertilizer.html">Fertilizer &amp; Pesticide</a>
+      <a href="weather.html">Weather</a>
+      <a href="marketplace.html">Marketplace</a>
+      <a href="profile.html">Farmer Profile</a>
+    </div>
+  </div>
+</header>
+
+<main id="about-main">
+
+    <!-- SECTION 1: INTRO (slides in from left) -->
+    <section class="about-section from-left" id="intro">
+      <div class="col-media" style="background-image: url('https://via.placeholder.com/900x600?text=Intro+Image');"></div>
+      <div class="col-body">
+        <h2>About Kissan Help Desk</h2>
+        <p>Kissan Help Desk is a practical digital platform built to make modern agricultural guidance simple and local. We convert science-based advice into short, actionable steps farmers can use right now.</p>
+        <p class="lead">We cover crop planning, input guidance, weather alerts and local marketplace signals — so farmers can make better, timely decisions.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: MISSION (slides in from right) -->
+    <section class="about-section from-right" id="mission">
+      <div class="col-media" style="background-image: url('https://via.placeholder.com/900x600?text=Mission+Image');"></div>
+      <div class="col-body">
+        <h2>Our Mission</h2>
+        <p>To empower farmers with timely, localized and easy-to-follow recommendations that increase productivity and income while reducing losses and environmental impact.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 3: SERVICES (from left) -->
+    <section class="about-section from-left" id="services">
+      <div class="col-media" style="background-image: url('https://via.placeholder.com/900x600?text=Services+Image');"></div>
+      <div class="col-body">
+        <h2>What we provide</h2>
+
+        <div class="services-list">
+          <div class="service-card">
+            <h4>Crop Advisory</h4>
+            <p>Seasonal, location-specific recommendations: variety, sowing, spacing, irrigation.</p>
+          </div>
+          <div class="service-card">
+            <h4>Fertilizer & Pesticide Guidance</h4>
+            <p>Correct dosage, timing and safety steps to protect crops and farmers.</p>
+          </div>
+          <div class="service-card">
+            <h4>Weather Alerts</h4>
+            <p>Short-term forecasts and alerts with clear action points for field operations.</p>
+          </div>
+          <div class="service-card">
+            <h4>Marketplace</h4>
+            <p>Price signals & demand info to help sell at the right time and place.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: VISION (from right) -->
+    <section class="about-section from-right" id="vision">
+      <div class="col-media" style="background-image: url('https://via.placeholder.com/900x600?text=Vision+Image');"></div>
+      <div class="col-body">
+        <h2>Our Vision</h2>
+        <p>A future where every farmer has access to clear, science-backed advice — higher yields, lower losses, sustainable livelihoods.</p>
+      </div>
+    </section>
+</main>
+
+<!-- ================= FOOTER (ALIGNED) ================= -->
+<footer class="footer">
+  <!-- FOOTER BACKGROUND: change URL here or move to styles.css -->
+  <div class="footer-bg" style="background-image:url('https://via.placeholder.com/1600x600?text=Footer+Background');"></div>
+  <div class="footer-overlay"></div>
+
+  <div class="footer-content">
+    <!-- Column 1: brand (logo + text) -->
+    <div class="footer-col">
+        <div class="footer-brand">
+        <!-- If you store logo locally: src="images/logo-footer.png" -->
+        <!-- <img class="logo-footer" src="https://cdn.discordapp.com/attachments/1411958405609820283/1448672587579261088/imgi_1_44dfc08e-c53e-4f0f-a00d-ebe781935e6c-removebg-preview.png?ex=693c1cfb&is=693acb7b&hm=99620e42df6bcbfe2408de183de62dd9f224db7c1a42035bd0da06dba4e92949"> -->
+        <h3><img style="width: 50px; height: auto;" src="https://cdn.discordapp.com/attachments/1411958405609820283/1448672587579261088/imgi_1_44dfc08e-c53e-4f0f-a00d-ebe781935e6c-removebg-preview.png?ex=693c1cfb&is=693acb7b&hm=99620e42df6bcbfe2408de183de62dd9f224db7c1a42035bd0da06dba4e92949"> Kisan Help Desk </h3>
+        <div>
+            <p>Empowering farmers with tools, resources and modern digital advisory.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 2: quick links -->
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="crop-advisory.html">Crop Advisory</a></li>
+        <li><a href="fertilizer.html">Fertilizer &amp; Pesticide</a></li>
+        <li><a href="weather.html">Weather Updates</a></li>
+        <li><a href="marketplace.html">Marketplace</a></li>
+        <li><a href="profile.html">Farmer Profile</a></li>
+      </ul>
+    </div>
+
+    <!-- Column 3: contact -->
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>Email: support@kissanhelpdesk.com</p>
+      <p>Phone: 1800-180-1551</p>
+      <div class="social" aria-hidden="true">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" class="icon" alt="">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="icon" alt="">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" class="icon" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">© 2025 Kissan Help Desk — All Rights Reserved</div>
+</footer>
+
+<!-- Link external JS file (save below as script.js in same folder) -->
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!-- File: weather.html -->
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Weather Dashboard — Kissan Help Desk</title>
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --bg-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      --accent-color: #38a169;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background: #f0f4f1;
+      color: #333;
+    }
+
+    /* Weather Hero Section */
+    .weather-header-section {
+      background: var(--bg-gradient);
+      color: white;
+      padding: 120px 6vw 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .weather-container {
+      max-width: 1100px;
+      margin: -30px auto 60px;
+      padding: 0 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.02);
+      margin-bottom: 24px;
+    }
+
+    .flex-space {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .weather-main-info {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .temp {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #1a4d2e;
+      margin: 0;
+    }
+
+    .weather-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+
+    .detail-item {
+      text-align: center;
+    }
+
+    .detail-item span {
+      display: block;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    .detail-item strong {
+      font-size: 1.2rem;
+      color: #222;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .forecast-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .forecast-day {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: #f7faf7;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .forecast-day span.cond {
+      color: #666;
+      font-weight: normal;
+    }
+
+    /* Advisory Card */
+    .advisory-card {
+      border-left: 6px solid #e53e3e;
+      background: #fffaf0;
+    }
+
+    .advisory-card.success {
+      border-left-color: #38a169;
+      background: #f0fff4;
+    }
+
+    .advisory-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #c53030;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .advisory-card.success .advisory-title {
+      color: #2f855a;
+    }
+
+    .location-selector {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      font-weight: 600;
+      outline: none;
+      background: white;
+    }
+
+    .about-footer {
+      margin-top: auto;
+      padding: 24px;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #eee;
+      font-size: 0.95rem;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header / Navigation -->
+  <header class="hero" id="hero" style="height: 80px; min-height: 80px; background: transparent;">
+    <div class="overlay" style="display: none;"></div>
+    <div class="topbar" id="topbar" style="top: 16px;">
+      <div class="brand" onclick="location.href='index.html'" role="button" aria-label="Home">
+        <img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+             alt="Kissan logo">
+        <div class="sitename">Kissan Help Desk</div>
+      </div>
+      
+      <nav class="main-nav" id="mainNav">
+        <!-- Will be dynamically populated by navbar.js -->
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+
+      <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <!-- Will be dynamically populated by navbar.js -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Weather Hero -->
+  <section class="weather-header-section">
+    <h1>Kisan Weather Portal 🌤️</h1>
+    <p>Live weather data and custom agricultural advisory alerts for your region</p>
+  </section>
+
+  <!-- Main Weather Dashboard Contents -->
+  <main class="weather-container">
+    <div class="grid">
+      <!-- Left side: Live weather -->
+      <div>
+        <div class="card">
+          <div class="flex-space">
+            <div>
+              <h2 id="currentLocation" style="margin: 0 0 4px; color: #1a4d2e;">Karnal, Haryana</h2>
+              <span style="color: #666; font-size: 0.9rem;">Last updated: Live Data</span>
+            </div>
+            <select id="regionSelect" class="location-selector">
+              <option value="karnal">Karnal, Haryana</option>
+              <option value="bathinda">Bathinda, Punjab</option>
+              <option value="meerut">Meerut, Uttar Pradesh</option>
+              <option value="indore">Indore, Madhya Pradesh</option>
+            </select>
+          </div>
+
+          <div class="weather-main-info" style="margin-top: 24px;">
+            <div style="font-size: 3rem;">☀️</div>
+            <div>
+              <div class="temp" id="currentTemp">32°C</div>
+              <div style="font-weight: 600; color: #555;" id="currentCond">Sunny / Clear Sky</div>
+            </div>
+          </div>
+
+          <div class="weather-details">
+            <div class="detail-item">
+              <span>Humidity</span>
+              <strong id="humidity">45%</strong>
+            </div>
+            <div class="detail-item">
+              <span>Wind Speed</span>
+              <strong id="wind">12 km/h</strong>
+            </div>
+            <div class="detail-item">
+              <span>Rain Probability</span>
+              <strong id="rainProb">5%</strong>
+            </div>
+            <div class="detail-item">
+              <span>Soil Temperature</span>
+              <strong id="soilTemp">26°C</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agricultural Weather Advisory warnings -->
+        <div class="card advisory-card" id="alertCard">
+          <div class="advisory-title">
+            ⚠️ Crop Advisory Alert: High Temperature
+          </div>
+          <p id="advisoryText">Avoid applying chemical fertilizers or weedicides during peak afternoon hours. Schedule light irrigation in early morning to prevent moisture stress in standing crops.</p>
+        </div>
+      </div>
+
+      <!-- Right side: 5-Day Forecast -->
+      <div>
+        <div class="card">
+          <h3 style="margin-top: 0; color: #1a4d2e; border-bottom: 2px solid #f0f4f1; padding-bottom: 8px;">5-Day Forecast</h3>
+          <div class="forecast-list" id="forecastContainer">
+            <div class="forecast-day">
+              <span>Tomorrow</span>
+              <span class="cond">☀️ 33°C</span>
+            </div>
+            <div class="forecast-day">
+              <span>Wednesday</span>
+              <span class="cond">🌤️ 31°C</span>
+            </div>
+            <div class="forecast-day">
+              <span>Thursday</span>
+              <span class="cond">⛈️ 28°C</span>
+            </div>
+            <div class="forecast-day">
+              <span>Friday</span>
+              <span class="cond">🌧️ 27°C</span>
+            </div>
+            <div class="forecast-day">
+              <span>Saturday</span>
+              <span class="cond">🌤️ 30°C</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="about-footer">
+    <div class="footer-brand"><strong>Kissan Help Desk</strong></div>
+    <div class="copyright">© 2025 Kissan Help Desk — All Rights Reserved</div>
+  </footer>
+
+  <script>
+    (function () {
+      const regionData = {
+        karnal: {
+          location: "Karnal, Haryana",
+          temp: "32°C",
+          cond: "Sunny / Clear Sky",
+          humidity: "45%",
+          wind: "12 km/h",
+          rainProb: "5%",
+          soilTemp: "26°C",
+          alertType: "warning",
+          alertText: "Avoid applying chemical fertilizers or weedicides during peak afternoon hours. Schedule light irrigation in early morning to prevent moisture stress.",
+          forecast: [
+            { day: "Tomorrow", cond: "☀️ 33°C" },
+            { day: "Wednesday", cond: "🌤️ 31°C" },
+            { day: "Thursday", cond: "⛈️ 28°C" },
+            { day: "Friday", cond: "🌧️ 27°C" },
+            { day: "Saturday", cond: "🌤️ 30°C" }
+          ]
+        },
+        bathinda: {
+          location: "Bathinda, Punjab",
+          temp: "34°C",
+          cond: "Hot & Windy",
+          humidity: "35%",
+          wind: "22 km/h",
+          rainProb: "0%",
+          soilTemp: "28°C",
+          alertType: "warning",
+          alertText: "Strong winds of 22 km/h are expected today. DO NOT spray liquid pesticides as they will drift. Ensure tall crops like sugarcane are propped up if needed.",
+          forecast: [
+            { day: "Tomorrow", cond: "☀️ 35°C" },
+            { day: "Wednesday", cond: "☀️ 34°C" },
+            { day: "Thursday", cond: "🌤️ 32°C" },
+            { day: "Friday", cond: "🌤️ 31°C" },
+            { day: "Saturday", cond: "☀️ 33°C" }
+          ]
+        },
+        meerut: {
+          location: "Meerut, Uttar Pradesh",
+          temp: "29°C",
+          cond: "Partly Cloudy",
+          humidity: "60%",
+          wind: "8 km/h",
+          rainProb: "40%",
+          soilTemp: "24°C",
+          alertType: "success",
+          alertText: "Moderate rain expected soon. Great time to plant new saplings. Hold off on manual irrigation to save water and prevent root decay.",
+          forecast: [
+            { day: "Tomorrow", cond: "🌧️ 27°C" },
+            { day: "Wednesday", cond: "⛈️ 26°C" },
+            { day: "Thursday", cond: "🌤️ 29°C" },
+            { day: "Friday", cond: "☀️ 30°C" },
+            { day: "Saturday", cond: "☀️ 31°C" }
+          ]
+        },
+        indore: {
+          location: "Indore, Madhya Pradesh",
+          temp: "27°C",
+          cond: "Rainy",
+          humidity: "85%",
+          wind: "14 km/h",
+          rainProb: "90%",
+          soilTemp: "21°C",
+          alertType: "warning",
+          alertText: "Heavy rain alert. Ensure proper drainage channels are open in soybean fields to prevent waterlogging and seed rotting.",
+          forecast: [
+            { day: "Tomorrow", cond: "🌧️ 26°C" },
+            { day: "Wednesday", cond: "🌧️ 25°C" },
+            { day: "Thursday", cond: "🌤️ 28°C" },
+            { day: "Friday", cond: "🌤️ 29°C" },
+            { day: "Saturday", cond: "☀️ 30°C" }
+          ]
+        }
+      };
+
+      const select = document.getElementById('regionSelect');
+      const locationTitle = document.getElementById('currentLocation');
+      const currentTemp = document.getElementById('currentTemp');
+      const currentCond = document.getElementById('currentCond');
+      const humidityEl = document.getElementById('humidity');
+      const windEl = document.getElementById('wind');
+      const rainEl = document.getElementById('rainProb');
+      const soilEl = document.getElementById('soilTemp');
+      const alertCard = document.getElementById('alertCard');
+      const advisoryText = document.getElementById('advisoryText');
+      const forecastContainer = document.getElementById('forecastContainer');
+
+      function updateUI(regionKey) {
+        const data = regionData[regionKey];
+        locationTitle.textContent = data.location;
+        currentTemp.textContent = data.temp;
+        currentCond.textContent = data.cond;
+        humidityEl.textContent = data.humidity;
+        windEl.textContent = data.wind;
+        rainEl.textContent = data.rainProb;
+        soilEl.textContent = data.soilTemp;
+
+        // Update Alert Card Styles
+        if (data.alertType === "success") {
+          alertCard.className = "card advisory-card success";
+          alertCard.querySelector('.advisory-title').textContent = "🍀 Safe / Good Conditions Advisory";
+        } else {
+          alertCard.className = "card advisory-card";
+          alertCard.querySelector('.advisory-title').textContent = "⚠️ Crop Advisory Alert";
+        }
+        advisoryText.textContent = data.alertText;
+
+        // Update Forecast
+        forecastContainer.innerHTML = '';
+        data.forecast.forEach(item => {
+          const row = document.createElement('div');
+          row.className = 'forecast-day';
+          row.innerHTML = `<span>${item.day}</span><span class="cond">${item.cond}</span>`;
+          forecastContainer.appendChild(row);
+        });
+      }
+
+      select.addEventListener('change', (e) => {
+        updateUI(e.target.value);
+      });
+
+      // Init
+      updateUI('karnal');
+    })();
+  </script>
+  <script src="navbar.js"></script>
+</body>
+
+</html>

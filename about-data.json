@@ -1,0 +1,41 @@
+{
+  "title": "Kissan Help Desk",
+  "tagline": "Digital solutions for every farmer.",
+  "intro": "Kissan Help Desk is a digital platform designed to deliver clear, practical and localized farming guidance to farmers. We simplify modern agricultural practices so every farmer can make better decisions.",
+  "mission": {
+    "heading": "Our Mission",
+    "body": "To empower farmers with technology and knowledge so they can increase productivity, reduce risk, and improve income through data-backed, easy-to-follow advice."
+  },
+  "services": [
+    {
+      "title": "Crop Advisory",
+      "desc": "Seasonal and location-based crop recommendations (variety, sowing time, spacing)."
+    },
+    {
+      "title": "Fertilizer & Pesticide Guidance",
+      "desc": "Correct dosage, timing and safety steps to protect crops and farmers."
+    },
+    {
+      "title": "Weather Alerts",
+      "desc": "Local short-term weather updates and actionable alerts to help plan field operations."
+    },
+    {
+      "title": "Marketplace",
+      "desc": "Price signals and demand information to help sell produce better."
+    },
+    {
+      "title": "Farmer Profile",
+      "desc": "Track fields, inputs and past recommendations to receive personalised advice."
+    }
+  ],
+  "vision": {
+    "heading": "Our Vision",
+    "body": "Make modern, science-based farming accessible to every farmer — reduce losses and increase sustainable profits."
+  },
+  "taglines": [
+    "Smart Farming, Smart Future",
+    "Technology for every farmer",
+    "Right information, right decision"
+  ],
+  "copyright": "© 2025 Kissan Help Desk — All Rights Reserved"
+}

@@ -1,0 +1,491 @@
+<!-- File: dashboard.html -->
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard — Kissan Help Desk</title>
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      margin: 0;
+      background: #f7faf7;
+      color: #333;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 110px auto 60px;
+      padding: 0 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .card {
+      background: #fff;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.02);
+      margin-bottom: 24px;
+    }
+
+    h2, h3, h4 {
+      color: #1a4d2e;
+      margin-top: 0;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border: 1px solid #edf2f7;
+      text-align: left;
+    }
+
+    th {
+      background: #f7faf7;
+      font-weight: 700;
+      color: #2f855a;
+    }
+
+    .btn {
+      background: #2f855a;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .btn:hover {
+      background: #276749;
+    }
+
+    .btn.danger {
+      background: #e53e3e;
+    }
+
+    .btn.danger:hover {
+      background: #c53030;
+    }
+
+    .log-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #edf2f7;
+      font-size: 0.9rem;
+    }
+
+    .log-item:last-child {
+      border-bottom: none;
+    }
+
+    .log-time {
+      font-size: 0.75rem;
+      color: #a0aec0;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .notif-item {
+      padding: 12px;
+      border-radius: 8px;
+      background: #f7faf7;
+      border-left: 4px solid #38a169;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+
+    .muted {
+      color: #718096;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header / Navigation -->
+  <header class="hero" id="hero" style="height: 80px; min-height: 80px; background: #2f855a; margin-bottom: 0;">
+    <div class="overlay" style="background: rgba(0,0,0,0.1);"></div>
+    <div class="topbar" id="topbar" style="top: 16px;">
+      <div class="brand" onclick="location.href='index.html'" role="button" aria-label="Home">
+        <img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+             alt="Kissan logo">
+        <div class="sitename">Kissan Help Desk</div>
+      </div>
+      
+      <nav class="main-nav" id="mainNav">
+        <!-- Will be dynamically populated by navbar.js -->
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+
+      <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <!-- Will be dynamically populated by navbar.js -->
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. PERSONAL USER DASHBOARD VIEW (Shown if logged in) -->
+    <div id="personalDashboard" style="display: none;">
+      <div class="card" style="background: linear-gradient(135deg, #f0fff4 0%, #ffffff 100%); border-left: 6px solid #38a169;">
+        <h2 style="margin: 0;" id="welcomeHeader">Hello, Kisan Farmer!</h2>
+        <p style="margin: 6px 0 0; color: #4a5568;" id="welcomeSub">Welcome to your Kisan Help Desk dashboard.</p>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- Left Column: Activity & Notifications -->
+        <div>
+          <!-- Notifications Center -->
+          <div class="card">
+            <h3>🔔 Recent Notifications</h3>
+            <div id="notifList">
+              <!-- Loaded dynamically -->
+            </div>
+          </div>
+
+          <!-- Activity History -->
+          <div class="card">
+            <h3>📜 Activity History Log</h3>
+            <div id="activityList">
+              <!-- Loaded dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Crop Listings / Advisory Queries -->
+        <div>
+          <!-- Crop Listings (Only for Farmers) -->
+          <div class="card" id="myListingsCard" style="display: none;">
+            <h3>🌾 My Published Crop Listings</h3>
+            <div style="overflow-x: auto;">
+              <table id="myListingsTable">
+                <thead>
+                  <tr>
+                    <th>Crop</th>
+                    <th>Variety</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Loaded dynamically -->
+                </tbody>
+              </table>
+            </div>
+            <div id="noListingsMsg" class="muted" style="margin-top: 12px; display: none;">You haven't listed any crops for sale yet.</div>
+          </div>
+
+          <!-- My Advisory Queries -->
+          <div class="card">
+            <h3>💬 My Advisory Queries</h3>
+            <div id="advisoryList">
+              <!-- Loaded dynamically -->
+            </div>
+            <button class="btn" style="margin-top: 12px;" onclick="window.location.href='query.html'">Ask New Query</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. ADMIN/DEBUG USER DIRECTORY VIEW (Shown if logged out or admin) -->
+    <div id="adminDashboard">
+      <div class="card">
+        <h3>Registered Users Directory (Admin/Debug Tool)</h3>
+        <div id="emptyMsg" class="muted">Loading...</div>
+        <div style="overflow:auto;margin-top:8px">
+          <table id="usersTable" aria-live="polite">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Role</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div style="margin-top:16px">
+          <button id="refreshBtn" class="btn">Refresh List</button>
+          <button id="clearAll" class="btn danger">Clear All Users</button>
+          <button id="backToSignup" class="btn" style="background:#edf2f7; color:#333;">Back to Signup</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const currentUser = JSON.parse(localStorage.getItem('kissan_current_user') || 'null');
+      const personalDashboard = document.getElementById('personalDashboard');
+      const adminDashboard = document.getElementById('adminDashboard');
+
+      if (currentUser) {
+        personalDashboard.style.display = 'block';
+        adminDashboard.style.display = 'none';
+        renderPersonalDashboard();
+      } else {
+        personalDashboard.style.display = 'none';
+        adminDashboard.style.display = 'block';
+        renderAdminDashboard();
+      }
+
+      // --- PERSONAL DASHBOARD FUNCTIONS ---
+      function renderPersonalDashboard() {
+        // Update header info
+        document.getElementById('welcomeHeader').textContent = `Hello, ${currentUser.fullName}!`;
+        document.getElementById('welcomeSub').textContent = `Logged in as: ${currentUser.role} | Registered Mobile: ${currentUser.mobile}`;
+
+        // 1. Load Notifications
+        const notifs = JSON.parse(localStorage.getItem('kissan_notifications_' + currentUser.mobile) || '[]');
+        const notifList = document.getElementById('notifList');
+        notifList.innerHTML = '';
+        if (notifs.length === 0) {
+          notifList.innerHTML = '<div class="muted">No recent notifications.</div>';
+        } else {
+          notifs.slice().reverse().forEach(n => {
+            const div = document.createElement('div');
+            div.className = 'notif-item';
+            div.innerHTML = `
+              <strong>${escapeHtml(n.title)}</strong>
+              <div style="margin-top: 2px;">${escapeHtml(n.message)}</div>
+              <span class="log-time">${new Date(n.timestamp).toLocaleString()}</span>
+            `;
+            notifList.appendChild(div);
+          });
+        }
+
+        // 2. Load Activities
+        const acts = JSON.parse(localStorage.getItem('kissan_activities_' + currentUser.mobile) || '[]');
+        const activityList = document.getElementById('activityList');
+        activityList.innerHTML = '';
+        if (acts.length === 0) {
+          activityList.innerHTML = '<div class="muted">No activity logged yet.</div>';
+        } else {
+          acts.slice().reverse().forEach(a => {
+            const div = document.createElement('div');
+            div.className = 'log-item';
+            div.innerHTML = `
+              <span>${escapeHtml(a.action)}</span>
+              <span class="log-time">${new Date(a.timestamp).toLocaleString()}</span>
+            `;
+            activityList.appendChild(div);
+          });
+        }
+
+        // 3. Load Crop Listings (Only for Farmers)
+        if (currentUser.role === 'Farmer') {
+          document.getElementById('myListingsCard').style.display = 'block';
+          renderMyCropListings();
+        }
+
+        // 4. Load Advisory Queries
+        const queries = JSON.parse(localStorage.getItem('kissan_queries_' + currentUser.mobile) || '[]');
+        const advisoryList = document.getElementById('advisoryList');
+        advisoryList.innerHTML = '';
+        if (queries.length === 0) {
+          advisoryList.innerHTML = '<div class="muted">No crop advisory queries submitted yet.</div>';
+        } else {
+          queries.slice().reverse().slice(0, 3).forEach(q => {
+            const div = document.createElement('div');
+            div.className = 'log-item';
+            const statusText = q.answer ? '✔️ Answered' : '⏳ Pending';
+            div.innerHTML = `
+              <div style="font-weight:600; display:flex; justify-content:space-between;">
+                <span>Q: ${escapeHtml(q.question.length > 40 ? q.question.substring(0,40) + '...' : q.question)}</span>
+                <span style="font-size:0.8rem; color:${q.answer ? '#2f855a' : '#c05621'};">${statusText}</span>
+              </div>
+              <span class="log-time">Asked on: ${new Date(q.createdAt).toLocaleDateString()}</span>
+            `;
+            advisoryList.appendChild(div);
+          });
+          if (queries.length > 3) {
+            advisoryList.innerHTML += `<div style="text-align:right; margin-top:8px;"><a href="query.html" style="font-size:0.85rem; color:#2f855a; font-weight:700; text-decoration:none;">View all ${queries.length} queries →</a></div>`;
+          }
+        }
+      }
+
+      function renderMyCropListings() {
+        const tbody = document.querySelector('#myListingsTable tbody');
+        const msg = document.getElementById('noListingsMsg');
+        tbody.innerHTML = '';
+
+        const allListings = JSON.parse(localStorage.getItem('kissan_crop_listings') || '[]');
+        const myListings = allListings.filter(l => l.farmerMobile === currentUser.mobile);
+
+        if (myListings.length === 0) {
+          document.getElementById('myListingsTable').style.display = 'none';
+          msg.style.display = 'block';
+          return;
+        }
+
+        document.getElementById('myListingsTable').style.display = 'table';
+        msg.style.display = 'none';
+
+        myListings.forEach(l => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><strong>${escapeHtml(l.cropName)}</strong></td>
+            <td>${escapeHtml(l.variety)}</td>
+            <td>${l.quantity} Qtl</td>
+            <td>₹${l.price}</td>
+            <td><button class="btn danger" onclick="deleteListing(${l.id})">Delete</button></td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      window.deleteListing = function(listingId) {
+        window.customConfirm('Delete this crop listing from the marketplace?', () => {
+          let listings = JSON.parse(localStorage.getItem('kissan_crop_listings') || '[]');
+          
+          // Find crop details for activity logging
+          const item = listings.find(l => l.id === listingId);
+          const cropName = item ? item.cropName : '';
+
+          listings = listings.filter(l => l.id !== listingId);
+          localStorage.setItem('kissan_crop_listings', JSON.stringify(listings));
+
+          // Log Activity
+          try {
+            const activities = JSON.parse(localStorage.getItem('kissan_activities_' + currentUser.mobile) || '[]');
+            activities.push({
+              action: `Removed Crop Listing for ${cropName}`,
+              timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('kissan_activities_' + currentUser.mobile, JSON.stringify(activities));
+          } catch (err) {}
+
+          renderPersonalDashboard();
+        });
+      };
+
+      // --- ADMIN/DEBUG DIRECTORY FUNCTIONS ---
+      function getUsers() {
+        try {
+          return JSON.parse(localStorage.getItem('kissan_users') || '[]');
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function renderAdminDashboard() {
+        const usersTableBody = document.querySelector('#usersTable tbody');
+        const emptyMsg = document.getElementById('emptyMsg');
+        const users = getUsers();
+
+        usersTableBody.innerHTML = '';
+        if (!users.length) {
+          emptyMsg.textContent = 'No registered users found locally.';
+          return;
+        }
+
+        emptyMsg.textContent = '';
+        users.forEach((u, idx) => {
+          const tr = document.createElement('tr');
+          const roleBadge = u.role || 'Farmer';
+          tr.innerHTML = `
+            <td>${idx + 1}</td>
+            <td>${escapeHtml(u.fullName)}</td>
+            <td>${escapeHtml(u.mobile)}</td>
+            <td><strong>${roleBadge}</strong></td>
+            <td>${u.age || ''}</td>
+            <td>${escapeHtml(u.sex)}</td>
+            <td>${escapeHtml(u.email || '')}</td>
+            <td>${escapeHtml(u.address)}</td>
+            <td>${new Date(u.createdAt).toLocaleDateString()}</td>
+            <td>
+              <button data-id="${u.id}" class="btn deleteBtn danger">Delete</button>
+            </td>
+          `;
+          usersTableBody.appendChild(tr);
+        });
+
+        // Delete button listener
+        document.querySelectorAll('.deleteBtn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = Number(btn.dataset.id);
+            window.customConfirm('Delete this user account?', () => {
+              const users = getUsers();
+              const target = users.find(x => x.id === id);
+              if (target) {
+                // Clear their queries, activities and notifications as well
+                localStorage.removeItem('kissan_activities_' + target.mobile);
+                localStorage.removeItem('kissan_notifications_' + target.mobile);
+                localStorage.removeItem('kissan_queries_' + target.mobile);
+              }
+              const newArr = users.filter(x => x.id !== id);
+              localStorage.setItem('kissan_users', JSON.stringify(newArr));
+              renderAdminDashboard();
+            });
+          });
+        });
+      }
+
+      // Attach admin actions
+      const refreshBtn = document.getElementById('refreshBtn');
+      const clearAllBtn = document.getElementById('clearAll');
+      const backBtn = document.getElementById('backToSignup');
+
+      if (refreshBtn) refreshBtn.addEventListener('click', renderAdminDashboard);
+      if (clearAllBtn) {
+        clearAllBtn.addEventListener('click', () => {
+          window.customConfirm('Clear ALL user data from localStorage? (This resets the app)', () => {
+            // Find all users and clean up keys
+            const users = getUsers();
+            users.forEach(u => {
+              localStorage.removeItem('kissan_activities_' + u.mobile);
+              localStorage.removeItem('kissan_notifications_' + u.mobile);
+              localStorage.removeItem('kissan_queries_' + u.mobile);
+            });
+            localStorage.removeItem('kissan_users');
+            localStorage.removeItem('kissan_current_user');
+            localStorage.removeItem('kissan_crop_listings');
+            renderAdminDashboard();
+          });
+        });
+      }
+      if (backBtn) backBtn.addEventListener('click', () => window.location.href = 'registration.html');
+
+      function escapeHtml(s) {
+        if (!s) return '';
+        return String(s).replace(/[&<>"']/g, (ch) => {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+        });
+      }
+    })();
+  </script>
+  <script src="navbar.js"></script>
+</body>
+
+</html>

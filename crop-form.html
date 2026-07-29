@@ -1,0 +1,349 @@
+<!-- File: crop-form.html -->
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Crop Advisory Form — Kissan Help Desk</title>
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background: #f7faf7;
+      color: #333;
+    }
+
+    .form-container {
+      max-width: 800px;
+      margin: 110px auto 60px;
+      padding: 0 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.02);
+      margin-bottom: 30px;
+    }
+
+    .form-title {
+      color: #1a4d2e;
+      margin-top: 0;
+      border-bottom: 2px solid #f0f4f1;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+
+    .field-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .field-group {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #555;
+    }
+
+    select, input {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 0.95rem;
+    }
+
+    select:focus, input:focus {
+      outline: none;
+      border-color: #2f855a;
+      box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.15);
+    }
+
+    .submit-btn {
+      background: #2f855a;
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+    }
+
+    .submit-btn:hover {
+      background: #276749;
+    }
+
+    /* Result styling */
+    .result-section {
+      display: none;
+      background: #f0fff4;
+      border: 1px solid #c6f6d5;
+      border-left: 6px solid #38a169;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 30px;
+    }
+
+    .result-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #22543d;
+      margin-top: 0;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .advisory-box {
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.03);
+      margin-top: 12px;
+    }
+
+    .about-footer {
+      margin-top: auto;
+      padding: 24px;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #eee;
+      font-size: 0.95rem;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header / Navigation -->
+  <header class="hero" id="hero" style="height: 80px; min-height: 80px; background: #2f855a; margin-bottom: 0;">
+    <div class="overlay" style="background: rgba(0,0,0,0.1);"></div>
+    <div class="topbar" id="topbar" style="top: 16px;">
+      <div class="brand" onclick="location.href='index.html'" role="button" aria-label="Home">
+        <img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+             alt="Kissan logo">
+        <div class="sitename">Kissan Help Desk</div>
+      </div>
+      
+      <nav class="main-nav" id="mainNav">
+        <!-- Will be dynamically populated by navbar.js -->
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+
+      <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <!-- Will be dynamically populated by navbar.js -->
+      </div>
+    </div>
+  </header>
+
+  <main class="form-container">
+    <div class="card">
+      <h2 class="form-title">🌾 Personalized Crop Advisory Request</h2>
+      <p style="color: #666; margin-bottom: 24px;">Fill out this form with your soil type and season to receive custom agricultural guidance instantly.</p>
+
+      <form id="advisoryForm">
+        <div class="field-group">
+          <div class="field">
+            <label for="state">State / Region</label>
+            <select id="state" required>
+              <option value="Haryana">Haryana</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="season">Current Sowing Season</label>
+            <select id="season" required>
+              <option value="Kharif">Kharif (Monsoon - Crop Sowing)</option>
+              <option value="Rabi">Rabi (Winter Crop)</option>
+              <option value="Zaid">Zaid (Summer Crop)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label for="soil">Soil Type</label>
+            <select id="soil" required>
+              <option value="Alluvial">Alluvial (Loamy)</option>
+              <option value="Black">Black Soil (Regur)</option>
+              <option value="Sandy">Sandy Soil</option>
+              <option value="Clayey">Clayey Soil</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="water">Primary Water Source</label>
+            <select id="water" required>
+              <option value="TubeWell">Tube Well / Borewell</option>
+              <option value="Canal">Canal Irrigation</option>
+              <option value="Rainfed">Rainfed (Dependent on Rain)</option>
+              <option value="Drip">Drip / Sprinkler system</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Get Advisory Recommendations</button>
+      </form>
+
+      <!-- Instant dynamic response card -->
+      <div id="resultCard" class="result-section">
+        <h3 class="result-title">🎯 Your Personalized Agricultural Recommendations</h3>
+        
+        <div class="advisory-box">
+          <h4 style="margin: 0 0 6px; color: #1a4d2e;">Recommended Crops & Varieties:</h4>
+          <p id="recCrops" style="margin: 0;"></p>
+        </div>
+
+        <div class="advisory-box">
+          <h4 style="margin: 0 0 6px; color: #1a4d2e;">Sowing & Spacing Advisory:</h4>
+          <p id="recSowing" style="margin: 0;"></p>
+        </div>
+
+        <div class="advisory-box">
+          <h4 style="margin: 0 0 6px; color: #1a4d2e;">Irrigation & Fertilizer Schedule:</h4>
+          <p id="recInputs" style="margin: 0;"></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="about-footer">
+    <div class="footer-brand"><strong>Kissan Help Desk</strong></div>
+    <div class="copyright">© 2025 Kissan Help Desk — All Rights Reserved</div>
+  </footer>
+
+  <script>
+    (function () {
+      const recommendations = {
+        "Kharif": {
+          "Alluvial": {
+            crops: "Rice (Basmati 1121, Pusa 1509) or Maize (HQPM-1, DHM-117)",
+            sowing: "Transplant rice seedlings in late June to early July. Maintain 20cm x 15cm spacing. Sow Maize at 60cm x 20cm depth.",
+            inputs: "Apply Urea in 3 split doses (transplanting, tillering, panicle initiation). Keep 2-3 cm standing water in paddy fields."
+          },
+          "Black": {
+            crops: "Cotton (Bt Cotton, RCH 650) or Soybean (JS 335, JS 95-60)",
+            sowing: "Sow Cotton after first monsoon shower. Spacing: 90cm x 60cm. Sow Soybean at 45cm line spacing.",
+            inputs: "Apply N:P:K in 20:60:20 kg/ha ratio. Ensure soil drainage channels are cleared to prevent root-logging."
+          },
+          "Sandy": {
+            crops: "Pearl Millet (Bajra - HHB 67) or Cluster Bean (Guar)",
+            sowing: "Sow in early July. Line spacing of 45cm. Sowing depth: 2-3cm.",
+            inputs: "Requires low nitrogen. Apply split doses of Urea after rain. Very drought tolerant."
+          },
+          "Clayey": {
+            crops: "Rice (Sarna, MTU 1010) or Sorghum (Jowar)",
+            sowing: "Transplant in July. Maintain soil aeration. Clay soil retains moisture, space plants slightly wider.",
+            inputs: "Watch for zinc deficiency (khaira disease). Apply Zinc Sulfate 25 kg/ha before transplanting."
+          }
+        },
+        "Rabi": {
+          "Alluvial": {
+            crops: "Wheat (HD 2967, HD 3086) or Mustard (RH 749, Pusa Mustard 25)",
+            sowing: "Optimal sowing window: Nov 1 - Nov 25. Sow at 22.5cm row spacing using seed drill.",
+            inputs: "6 critical irrigation stages starting at CRI (21 days after sowing). Apply N:P:K (120:60:40 kg/ha)."
+          },
+          "Black": {
+            crops: "Chickpea (Gram - JG 11, JAKI 9218) or Wheat (HI 1544)",
+            sowing: "Sow in October. Row spacing: 30cm. Chickpea needs deep sowing (8-10cm) to utilize residual moisture.",
+            inputs: "Seed treatment with Rhizobium culture. Apply single super phosphate (SSP) for sulfur requirements."
+          },
+          "Sandy": {
+            crops: "Mustard (Sarso - RH 30) or Barley (BH 393)",
+            sowing: "Sow in October. Spacing: 30cm x 10cm. Light irrigation needed at flowering stage.",
+            inputs: "Apply Gypsum 250 kg/ha for enhancing mustard oil content. Split-apply nitrogen."
+          },
+          "Clayey": {
+            crops: "Wheat (DBW 187) or Lentil (Masoor - L 4076)",
+            sowing: "Sow in mid-November. Clay clay loam holds moisture, so do not overwater at sowing to avoid seed rot.",
+            inputs: "Apply phosphorus deep in rows. Perform weeding 30 days post-sowing."
+          }
+        },
+        "Zaid": {
+          "Alluvial": {
+            crops: "Moong Bean (SML 668) or Cucumbers/Watermelons",
+            sowing: "Sow in March. Row spacing: 30cm. Moong bean fits perfectly between Potato harvest and Rice transplanting.",
+            inputs: "Requires light and frequent irrigations (every 7-10 days). Apply phosphatic fertilizers."
+          },
+          "Black": {
+            crops: "Sesame (Til - RT 351) or Groundnut",
+            sowing: "Sow in March. Thinning at 15 days is critical. Keep spacing 30cm x 15cm.",
+            inputs: "Irrigate at flowering and pod filling. Keep field free of weeds."
+          },
+          "Sandy": {
+            crops: "Muskmelon (Kharbuza) or Fodder Sorghum",
+            sowing: "Sow in late February. Use riverbed dry-cultivation techniques where applicable.",
+            inputs: "Focus on potassium application for higher sugar content in melons. High irrigation frequency."
+          },
+          "Clayey": {
+            crops: "Cowpea (Lobia) or Urd Bean",
+            sowing: "Sow in early March. Keep row spacing at 45cm. Maintain soil moisture.",
+            inputs: "Needs balanced phosphorus. Perform foliar spray of Urea 2% if leaves show yellowing."
+          }
+        }
+      };
+
+      const form = document.getElementById('advisoryForm');
+      const resultCard = document.getElementById('resultCard');
+      const recCrops = document.getElementById('recCrops');
+      const recSowing = document.getElementById('recSowing');
+      const recInputs = document.getElementById('recInputs');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const season = document.getElementById('season').value;
+        const soil = document.getElementById('soil').value;
+
+        const advisory = recommendations[season]?.[soil];
+
+        if (advisory) {
+          recCrops.textContent = advisory.crops;
+          recSowing.textContent = advisory.sowing;
+          recInputs.textContent = advisory.inputs;
+
+          resultCard.style.display = 'block';
+          resultCard.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.customAlert('Sorry, no advisory recommendation found for this selection.');
+        }
+      });
+    })();
+  </script>
+  <script src="navbar.js"></script>
+</body>
+
+</html>

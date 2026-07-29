@@ -1,0 +1,238 @@
+<!-- File: signin.html -->
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign In — Kissan Help Desk</title>
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background: #f7faf7;
+    }
+
+    #signin-main {
+      max-width: 500px;
+      width: 100%;
+      margin: 60px auto;
+      padding: 20px;
+    }
+
+    .signin-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .signin-card h2 {
+      margin: 0 0 8px;
+      color: #1a4d2e;
+    }
+
+    .lead {
+      color: #666;
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+
+    .signin-form .field {
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .signin-form .label-text {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+      font-size: 0.95rem;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #2f855a;
+      box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.15);
+    }
+
+    .primary-btn {
+      width: 100%;
+      background: #2f855a;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .primary-btn:hover {
+      background: #276749;
+    }
+
+    .form-msg {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .small-actions {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .small-actions a {
+      color: #2f855a;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .small-actions a:hover {
+      text-decoration: underline;
+    }
+
+    .about-footer {
+      margin-top: auto;
+      padding: 20px;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #eee;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="hero" id="hero" style="height: 80px; min-height: 80px; background: #2f855a;">
+    <div class="overlay" style="background: rgba(0,0,0,0.1);"></div>
+    <div class="topbar" id="topbar" style="top: 16px;">
+      <div class="brand" onclick="location.href='index.html'" role="button" aria-label="Home">
+        <img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+             alt="Kissan logo">
+        <div class="sitename">Kissan Help Desk</div>
+      </div>
+      
+      <nav class="main-nav" id="mainNav">
+        <!-- Will be dynamically populated by navbar.js -->
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+
+      <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <!-- Will be dynamically populated by navbar.js -->
+      </div>
+    </div>
+  </header>
+
+  <main id="signin-main">
+    <div class="signin-card">
+      <h2>Welcome Back</h2>
+      <p class="lead">Please enter your credentials to log in to your Kisan Help Desk account.</p>
+
+      <form id="signinForm" class="signin-form">
+        <label class="field">
+          <span class="label-text">Mobile Number</span>
+          <input name="mobile" id="mobile" type="tel" placeholder="e.g. 98XXXXXXXX" pattern="^[0-9]{10}$" required>
+        </label>
+
+        <label class="field">
+          <span class="label-text">Password</span>
+          <input name="password" id="password" type="password" placeholder="Enter your password" required>
+        </label>
+
+        <button type="submit" class="primary-btn">Sign In</button>
+
+        <div id="formMsg" class="form-msg"></div>
+
+        <div class="small-actions">
+          Don't have an account? <a href="registration.html">Register here</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="about-footer">
+    <div class="footer-brand"><strong>Kissan Help Desk</strong></div>
+    <div class="copyright">© 2025 Kissan Help Desk — All Rights Reserved</div>
+  </footer>
+
+  <script>
+    (function () {
+      const form = document.getElementById('signinForm');
+      const formMsg = document.getElementById('formMsg');
+
+      function getUsers() {
+        try {
+          return JSON.parse(localStorage.getItem('kissan_users') || '[]');
+        } catch (e) {
+          return [];
+        }
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const mobile = document.getElementById('mobile').value.trim();
+        const password = document.getElementById('password').value;
+
+        const users = getUsers();
+        const user = users.find(u => u.mobile === mobile);
+
+        if (!user || user.password !== password) {
+          formMsg.textContent = 'Invalid mobile number or password!';
+          formMsg.style.color = 'crimson';
+          return;
+        }
+
+        // Successfully logged in
+        localStorage.setItem('kissan_current_user', JSON.stringify(user));
+
+        // Add sign-in activity
+        try {
+          const activities = JSON.parse(localStorage.getItem('kissan_activities_' + user.mobile) || '[]');
+          activities.push({
+            action: 'Logged in to account',
+            timestamp: new Date().toISOString()
+          });
+          localStorage.setItem('kissan_activities_' + user.mobile, JSON.stringify(activities));
+        } catch (error) {}
+
+        formMsg.textContent = 'Login successful! Redirecting...';
+        formMsg.style.color = 'green';
+
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1200);
+      });
+    })();
+  </script>
+  <script src="navbar.js"></script>
+</body>
+
+</html>

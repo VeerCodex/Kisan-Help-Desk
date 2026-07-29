@@ -1,0 +1,376 @@
+<!-- File: query.html -->
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Advisory Q&A Support — Kissan Help Desk</title>
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background: #f7faf7;
+      color: #333;
+    }
+
+    .query-header-section {
+      background: linear-gradient(135deg, #2e6240 0%, #3f8a58 100%);
+      color: white;
+      padding: 120px 6vw 40px;
+      text-align: center;
+    }
+
+    .query-container {
+      max-width: 900px;
+      margin: -30px auto 60px;
+      padding: 0 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.02);
+      margin-bottom: 24px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 0.95rem;
+      resize: vertical;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #2f855a;
+      box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.15);
+    }
+
+    .btn {
+      background: #2f855a;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: #276749;
+    }
+
+    .q-item {
+      padding: 16px;
+      border-bottom: 1px solid #f0f4f1;
+      margin-bottom: 12px;
+    }
+
+    .q-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .q-question {
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .q-answer {
+      background: #f7faf7;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border-left: 4px solid #2f855a;
+      font-size: 0.92rem;
+      color: #4a5568;
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .status-badge.pending {
+      background: #feebc8;
+      color: #c05621;
+    }
+
+    .status-badge.answered {
+      background: #c6f6d5;
+      color: #22543d;
+    }
+
+    .about-footer {
+      margin-top: auto;
+      padding: 24px;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #eee;
+      font-size: 0.95rem;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header / Navigation -->
+  <header class="hero" id="hero" style="height: 80px; min-height: 80px; background: transparent;">
+    <div class="overlay" style="display: none;"></div>
+    <div class="topbar" id="topbar" style="top: 16px;">
+      <div class="brand" onclick="location.href='index.html'" role="button" aria-label="Home">
+        <img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+             alt="Kissan logo">
+        <div class="sitename">Kissan Help Desk</div>
+      </div>
+      
+      <nav class="main-nav" id="mainNav">
+        <!-- Will be dynamically populated by navbar.js -->
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+
+      <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <!-- Will be dynamically populated by navbar.js -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Query Header -->
+  <section class="query-header-section">
+    <h1>Advisory Query Support 💬</h1>
+    <p>Ask our agriculture specialists any questions regarding crop diseases, pest controls, or water levels</p>
+  </section>
+
+  <!-- Main Container -->
+  <main class="query-container">
+    <!-- Logged out notice -->
+    <div id="loggedOutCard" class="card" style="display: none; text-align: center;">
+      <h3 style="color: #2f855a;">Need Personalized Expert Advice?</h3>
+      <p>Log in or create a farmer account to submit specific questions about your farm fields.</p>
+      <button class="btn" onclick="window.location.href='signin.html'" style="margin-right: 8px;">Sign In</button>
+      <button class="btn" style="background:#edf2f7; color:#333;" onclick="window.location.href='registration.html'">Register</button>
+    </div>
+
+    <!-- Submit Query Card -->
+    <div id="submitCard" class="card" style="display: none;">
+      <h3 style="color: #2f855a; margin-top: 0; border-bottom: 2px solid #f0f4f1; padding-bottom: 8px;">Ask a New Question</h3>
+      <form id="queryForm">
+        <div style="margin-bottom: 16px;">
+          <label for="queryText" style="display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.9rem;">Describe your problem in detail:</label>
+          <textarea id="queryText" placeholder="Example: Yellow spots appearing on wheat leaves since 3 days. Soil is sandy. Sown in early November. What pesticide should I use?" required></textarea>
+        </div>
+        <button type="submit" class="btn">Submit Query</button>
+      </form>
+    </div>
+
+    <!-- My Queries List Card -->
+    <div id="historyCard" class="card" style="display: none;">
+      <h3 style="color: #2f855a; margin-top: 0; border-bottom: 2px solid #f0f4f1; padding-bottom: 8px;">My Advisory Queries</h3>
+      <div id="queriesList">
+        <!-- Queries loaded dynamically -->
+      </div>
+    </div>
+
+    <!-- Public FAQs -->
+    <div class="card">
+      <h3 style="color: #2f855a; margin-top: 0; border-bottom: 2px solid #f0f4f1; padding-bottom: 8px;">Common FAQs & Solutions</h3>
+      
+      <div class="q-item">
+        <div class="q-question">Q: How to protect standing crops from sudden frost in winter?</div>
+        <div class="q-answer">Apply light irrigation in the evening. Silt/water retains heat, protecting the roots. Also, create mild smoke clouds around the field boundary if frost warning is high.</div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-question">Q: What is the optimal treatment for Termite attack in wheat fields?</div>
+        <div class="q-answer">Mix Chlorpyriphos 20 EC with sand/irrigation water. Avoid using undecomposed cow dung ( गोबर खाद ) as it attracts termites.</div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-question">Q: When should the first irrigation (CRI stage) be given to Wheat?</div>
+        <div class="q-answer">Crown Root Initiation (CRI) occurs at 21-25 days after sowing. This is the most critical irrigation stage for yield.</div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="about-footer">
+    <div class="footer-brand"><strong>Kissan Help Desk</strong></div>
+    <div class="copyright">© 2025 Kissan Help Desk — All Rights Reserved</div>
+  </footer>
+
+  <script>
+    (function () {
+      const currentUser = JSON.parse(localStorage.getItem('kissan_current_user') || 'null');
+      const loggedOutCard = document.getElementById('loggedOutCard');
+      const submitCard = document.getElementById('submitCard');
+      const historyCard = document.getElementById('historyCard');
+      const queriesList = document.getElementById('queriesList');
+      const queryForm = document.getElementById('queryForm');
+      const queryText = document.getElementById('queryText');
+
+      if (!currentUser) {
+        loggedOutCard.style.display = 'block';
+        return;
+      }
+
+      // Show submit card and history
+      submitCard.style.display = 'block';
+      historyCard.style.display = 'block';
+
+      function getQueries() {
+        try {
+          return JSON.parse(localStorage.getItem('kissan_queries_' + currentUser.mobile) || '[]');
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function saveQueries(arr) {
+        localStorage.setItem('kissan_queries_' + currentUser.mobile, JSON.stringify(arr));
+      }
+
+      function renderQueries() {
+        const queries = getQueries();
+        queriesList.innerHTML = '';
+
+        if (queries.length === 0) {
+          queriesList.innerHTML = '<p style="color:#999; text-align:center; padding:12px;">You haven\'t asked any queries yet.</p>';
+          return;
+        }
+
+        queries.slice().reverse().forEach((q, idx) => {
+          const div = document.createElement('div');
+          div.className = 'q-item';
+
+          const statusText = q.answer ? 'Answered' : 'Pending Review';
+          const statusClass = q.answer ? 'answered' : 'pending';
+
+          let answerHtml = q.answer 
+            ? `<div class="q-answer" style="margin-top: 8px;"><strong>🌾 Specialist Advice:</strong> ${escapeHtml(q.answer)}</div>`
+            : `<div class="q-answer" style="margin-top: 8px; border-left-color: #ecc94b; background:#fffdf5;">⏳ Our specialists are analyzing your field query. Typically replies within minutes.</div>`;
+
+          div.innerHTML = `
+            <div class="q-question">
+              <span>Q: ${escapeHtml(q.question)}</span>
+              <span class="status-badge ${statusClass}">${statusText}</span>
+            </div>
+            <div style="font-size:0.75rem; color:#999; margin-bottom:8px;">Asked on: ${new Date(q.createdAt).toLocaleString()}</div>
+            ${answerHtml}
+          `;
+          queriesList.appendChild(div);
+        });
+      }
+
+      queryForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const text = queryText.value.trim();
+        if (!text) return;
+
+        const queries = getQueries();
+        const newQuery = {
+          id: Date.now(),
+          question: text,
+          answer: null,
+          createdAt: new Date().toISOString()
+        };
+
+        queries.push(newQuery);
+        saveQueries(queries);
+        queryText.value = '';
+        renderQueries();
+
+        // 1. Log Activity History
+        try {
+          const activities = JSON.parse(localStorage.getItem('kissan_activities_' + currentUser.mobile) || '[]');
+          activities.push({
+            action: 'Asked query: "' + (text.length > 30 ? text.substring(0, 30) + '...' : text) + '"',
+            timestamp: new Date().toISOString()
+          });
+          localStorage.setItem('kissan_activities_' + currentUser.mobile, JSON.stringify(activities));
+        } catch (err) {}
+
+        // 2. Simulate Expert Answer after 3 seconds
+        setTimeout(() => {
+          const freshQueries = getQueries();
+          const qIdx = freshQueries.findIndex(q => q.id === newQuery.id);
+          if (qIdx !== -1) {
+            freshQueries[qIdx].answer = getMockAnswerForQuery(text);
+            saveQueries(freshQueries);
+            
+            // Re-render queries listing
+            renderQueries();
+
+            // 3. Trigger alert notification
+            try {
+              const notifications = JSON.parse(localStorage.getItem('kissan_notifications_' + currentUser.mobile) || '[]');
+              notifications.push({
+                title: 'Expert Answer Received! 🌿',
+                message: 'Your query regarding "' + (text.length > 20 ? text.substring(0, 20) + '...' : text) + '" has been answered by a specialist.',
+                timestamp: new Date().toISOString(),
+                unread: true
+              });
+              localStorage.setItem('kissan_notifications_' + currentUser.mobile, JSON.stringify(notifications));
+              
+              // Dynamically update bell badge
+              if (typeof updateAuthLinks === 'function') {
+                updateAuthLinks();
+              }
+            } catch (err) {}
+          }
+        }, 4000);
+      });
+
+      function getMockAnswerForQuery(question) {
+        const q = question.toLowerCase();
+        if (q.includes('yellow') || q.includes('spots') || q.includes('leaf') || q.includes('pila')) {
+          return "This looks like Yellow Rust (पीला रतुआ) disease, common in winter fields. We recommend spraying Propiconazole 25 EC (Tilt) at 200 ml mixed in 200 liters of water per acre. Avoid excess nitrogen fertilizer application right now.";
+        }
+        if (q.includes('termite') || q.includes('diwar') || q.includes('deemak')) {
+          return "For termite (दीमक) infestation, apply Chlorpyriphos 20 EC @ 2 liters per acre mixed with light sand or irrigation water. Ensure only fully decomposed compost is used in the future.";
+        }
+        if (q.includes('weed') || q.includes('grass') || q.includes('kharpatwar')) {
+          return "For weeding control, perform manual hoeing (निराई-गुड़ाई) 30 days after sowing. For chemical spray, use Sulfosulfuron @ 13.5 grams per acre for broad and narrow-leaf weeds, applied 30-35 days after sowing.";
+        }
+        return "Based on your description, this could be due to nutrient deficiency (nitrogen or zinc) or mild pest activity. We recommend applying a foliar spray of 2% Urea along with Zinc Sulfate (0.5%) in 200 liters of water. Keep soil moisture optimal.";
+      }
+
+      function escapeHtml(s) {
+        if (!s) return '';
+        return String(s).replace(/[&<>"']/g, (ch) => {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+        });
+      }
+
+      // Initial render
+      renderQueries();
+    })();
+  </script>
+  <script src="navbar.js"></script>
+</body>
+
+</html>

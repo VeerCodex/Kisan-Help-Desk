@@ -1,0 +1,375 @@
+<!-- File: registration.html -->
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign up — Kissan Help Desk</title>
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    /* Minimal styling so it's easy to drop in and test */
+    :root {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background: #f7faf7
+    }
+
+    header.hero {
+      height: 72px;
+      background: #2f855a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff
+    }
+
+    #registration-main {
+      max-width: 980px;
+      margin: 24px auto;
+      padding: 20px
+    }
+
+    .registration-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06)
+    }
+
+    .col-media {
+      height: 760px;
+      background-position: center;
+
+      box-shadow: #333;
+      border-radius: 8px
+    }
+
+    .col-body h2 {
+      margin: 0 0 8px
+    }
+
+    .lead {
+      color: #555;
+      margin-bottom: 12px
+    }
+
+    .provider-section {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px
+    }
+
+    .provider {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      background: #fff;
+      cursor: pointer
+    }
+
+    .provider.google {
+      border-color: #c6daf0
+    }
+
+    .signup-form .field {
+      display: block;
+      margin-bottom: 10px
+    }
+
+    .signup-form .label-text {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: #333
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ddd
+    }
+
+    .row {
+      display: flex;
+      gap: 10px
+    }
+
+    .field.small {
+      flex: 1
+    }
+
+    .primary-btn {
+      background: #2f855a;
+      color: #fff;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer
+    }
+
+    .form-msg {
+      margin-top: 10px;
+      color: green
+    }
+
+    .about-footer {
+      margin-top: auto;
+      padding: 12px;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #eee
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse
+    }
+
+    th,
+    td {
+      padding: 8px;
+      border: 1px solid #eee;
+      text-align: left
+    }
+
+    .small-actions {
+      margin-top: 10px
+    }
+
+    .link-btn {
+      background: none;
+      border: none;
+      color: #2b6cb0;
+      cursor: pointer
+    }
+  </style>
+</head>
+
+<body>
+  <header class="hero" id="hero" style="height: 80px; min-height: 80px; background: #2f855a;">
+    <div class="overlay" style="background: rgba(0,0,0,0.1);"></div>
+    <div class="topbar" id="topbar" style="top: 16px;">
+      <div class="brand" onclick="location.href='index.html'" role="button" aria-label="Home">
+        <img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+             alt="Kissan logo">
+        <div class="sitename">Kissan Help Desk</div>
+      </div>
+      
+      <nav class="main-nav" id="mainNav">
+        <!-- Will be dynamically populated by navbar.js -->
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+
+      <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <!-- Will be dynamically populated by navbar.js -->
+      </div>
+    </div>
+  </header>
+  <main id="registration-main">
+    <section class="registration-section from-left" id="signup">
+      <div class="col-media"
+        style="background-image: url('https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=600&q=80');">
+      </div>
+      <div class="col-body">
+        <h2>Welcome to Kissan Help Desk</h2>
+        <p class="lead">Get personalised crop advice — sign up for faster, localised recommendations.</p>
+
+        <div class="provider-section">
+          <button id="googleBtn" class="provider google"> <span class="ico">G</span> Continue with Google</button>
+          <button id="pickEmail" class="provider email">Sign up with Email</button>
+        </div>
+
+        <form action="/request" method="POST" id="signupForm" class="signup-form" novalidate>
+          <label class="field">
+            <span class="label-text">Full name</span>
+            <input name="fullName" id="fullName" type="text" placeholder="e.g. Ram Kumar" required>
+          </label>
+
+          <label class="field">
+            <span class="label-text">Password</span>
+            <input name="password" id="password" type="password" placeholder="Choose a strong password" minlength="6"
+              required>
+          </label>
+
+          <label class="field">
+            <span class="label-text">Mobile number</span>
+            <input name="mobile" id="mobile" type="tel" placeholder="e.g. 98XXXXXXXX" pattern="^[0-9]{10}$" required>
+          </label>
+
+          <label class="field">
+            <span class="label-text">Address</span>
+            <input name="address" id="address" type="text" placeholder="Village, Block, District" required>
+          </label>
+
+          <div class="row">
+            <label class="field small">
+              <span class="label-text">Age</span>
+              <input name="age" id="age" type="number" min="12" max="120" required>
+            </label>
+
+            <label class="field small">
+              <span class="label-text">Sex</span>
+              <select name="sex" id="sex" required>
+                <option value="" disabled selected>Choose</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="field">
+            <span class="label-text">Account Role</span>
+            <select name="role" id="role" required>
+              <option value="Farmer" selected>Farmer (Kisan)</option>
+              <option value="Buyer">Buyer (Vyaapari)</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="label-text">Email (optional)</span>
+            <input name="email" id="email" type="email" placeholder="optional">
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">Create account</button>
+          </div>
+
+          <div id="formMsg" class="form-msg" aria-live="polite"></div>
+
+          <div class="small-actions">
+            Already a member? <a href="signin.html">Sign in</a> · <button id="maybeLater" class="link-btn"
+              type="button">Maybe later</button>
+
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="about-footer">
+    <div class="footer-brand"><strong>Kissan Help Desk</strong></div>
+    <div class="copyright">© 2025 Kissan Help Desk — All Rights Reserved</div>
+  </footer>
+
+  <script>
+    // --- registration.js (inline local storage implementation) ---
+    (function () {
+      const form = document.getElementById('signupForm');
+      const formMsg = document.getElementById('formMsg');
+      const googleBtn = document.getElementById('googleBtn');
+      const maybeLater = document.getElementById('maybeLater');
+
+      googleBtn.addEventListener('click', () => {
+        window.customAlert('Google Sign-in placeholder (not implemented in this demo). Use email form below.');
+      });
+
+      function getUsers() {
+        try {
+          return JSON.parse(localStorage.getItem('kissan_users') || '[]');
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function saveUsers(arr) {
+        localStorage.setItem('kissan_users', JSON.stringify(arr));
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Basic validation
+        if (!form.checkValidity()) {
+          formMsg.textContent = 'Please fill out all required fields correctly.';
+          formMsg.style.color = 'crimson';
+          return;
+        }
+
+        const fullName = document.getElementById('fullName').value.trim();
+        const password = document.getElementById('password').value;
+        const mobile = document.getElementById('mobile').value.trim();
+        const address = document.getElementById('address').value.trim();
+        const age = document.getElementById('age').value;
+        const sex = document.getElementById('sex').value;
+        const role = document.getElementById('role').value;
+        const email = document.getElementById('email').value.trim();
+
+        const users = getUsers();
+
+        // Check if user already exists
+        const userExists = users.some(u => u.mobile === mobile);
+        if (userExists) {
+          formMsg.textContent = 'Mobile number is already registered! Please Sign In.';
+          formMsg.style.color = 'crimson';
+          return;
+        }
+
+        const newUser = {
+          id: Date.now(),
+          fullName,
+          password, // Store as plain text for demo local storage authentication
+          mobile,
+          address,
+          age: Number(age),
+          sex,
+          role,
+          email,
+          createdAt: new Date().toISOString()
+        };
+
+        users.push(newUser);
+        saveUsers(users);
+
+        // Auto login after signup
+        localStorage.setItem('kissan_current_user', JSON.stringify(newUser));
+
+        // Initialize Activity History log
+        const activities = [{
+          action: 'Registered Account as ' + role,
+          timestamp: new Date().toISOString()
+        }];
+        localStorage.setItem('kissan_activities_' + mobile, JSON.stringify(activities));
+
+        // Initialize Notifications Center
+        const notifications = [{
+          title: 'Welcome to Kisan Help Desk! 🎉',
+          message: `Hello ${fullName.split(' ')[0]}, your ${role} account has been created successfully.`,
+          timestamp: new Date().toISOString(),
+          unread: true
+        }];
+        localStorage.setItem('kissan_notifications_' + mobile, JSON.stringify(notifications));
+
+        formMsg.textContent = 'Registration successful! Redirecting to dashboard...';
+        formMsg.style.color = 'green';
+
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1500);
+      });
+
+      maybeLater.addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+    })();
+  </script>
+  <script src="navbar.js"></script>
+</body>
+
+</html>

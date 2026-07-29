@@ -1,0 +1,616 @@
+<!-- File: marketplace.html -->
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kisan Marketplace — Kissan Help Desk</title>
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --accent-color: #2f855a;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background: #f7faf7;
+      color: #333;
+    }
+
+    /* Marketplace Header */
+    .market-header-section {
+      background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+      color: white;
+      padding: 120px 6vw 40px;
+      text-align: center;
+    }
+
+    .market-container {
+      max-width: 1100px;
+      margin: -30px auto 60px;
+      padding: 0 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Tabs styling */
+    .market-tabs {
+      display: flex;
+      background: #e2e8f0;
+      padding: 4px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      background: none;
+      border: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #4a5568;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: white;
+      color: #1a4d2e;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.02);
+      margin-bottom: 24px;
+    }
+
+    .search-filter-box {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: #2f855a;
+      box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.15);
+    }
+
+    .select-input {
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      background: white;
+      outline: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f7faf7;
+      color: #2f855a;
+      font-weight: 700;
+    }
+
+    tr:hover {
+      background-color: #fafdfb;
+    }
+
+    .badge {
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: inline-block;
+    }
+
+    .badge.up {
+      background: #c6f6d5;
+      color: #22543d;
+    }
+
+    .badge.down {
+      background: #fed7d7;
+      color: #742a2a;
+    }
+
+    .badge.stable {
+      background: #edf2f7;
+      color: #4a5568;
+    }
+
+    /* Marketplace grid */
+    .listing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .listing-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #edf2f7;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s;
+    }
+
+    .listing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .listing-img {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .listing-body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .listing-price {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #2f855a;
+      margin: 8px 0;
+    }
+
+    .btn {
+      background: #2f855a;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: #276749;
+    }
+
+    /* Forms styling */
+    .form-field {
+      margin-bottom: 16px;
+    }
+
+    .form-field label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .form-field input, .form-field select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+
+    .form-field input:focus, .form-field select:focus {
+      outline: none;
+      border-color: #2f855a;
+    }
+
+    .price-helper {
+      font-size: 0.82rem;
+      color: #718096;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .about-footer {
+      margin-top: auto;
+      padding: 24px;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #eee;
+      font-size: 0.95rem;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header / Navigation -->
+  <header class="hero" id="hero" style="height: 80px; min-height: 80px; background: transparent;">
+    <div class="overlay" style="display: none;"></div>
+    <div class="topbar" id="topbar" style="top: 16px;">
+      <div class="brand" onclick="location.href='index.html'" role="button" aria-label="Home">
+        <img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+             alt="Kissan logo">
+        <div class="sitename">Kissan Help Desk</div>
+      </div>
+      
+      <nav class="main-nav" id="mainNav">
+        <!-- Will be dynamically populated by navbar.js -->
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+
+      <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <!-- Will be dynamically populated by navbar.js -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Marketplace Header -->
+  <section class="market-header-section">
+    <h1>Smart Crop Marketplace 🌾</h1>
+    <p>Compare mandi prices, list yields for sale, or browse available crops from local farmers</p>
+  </section>
+
+  <!-- Main Container -->
+  <main class="market-container">
+    <!-- Tab Controls -->
+    <div class="market-tabs">
+      <button class="tab-btn active" onclick="switchTab('mandiTab')">Live Mandi Prices</button>
+      <button class="tab-btn" onclick="switchTab('marketplaceTab')">Farmer Marketplace</button>
+      <button class="tab-btn" id="sellYieldTab" style="display: none;" onclick="switchTab('sellTab')">Sell My Yield</button>
+    </div>
+
+    <!-- Live Mandi Tab -->
+    <div id="mandiTab" class="tab-content">
+      <div class="card">
+        <div class="search-filter-box">
+          <input type="text" id="searchInput" class="search-input" placeholder="Search crops (e.g. Wheat, Rice, Potato)...">
+          <select id="marketFilter" class="select-input">
+            <option value="">All Markets</option>
+            <option value="Karnal Mandi">Karnal Mandi</option>
+            <option value="Bathinda Mandi">Bathinda Mandi</option>
+            <option value="Meerut Mandi">Meerut Mandi</option>
+            <option value="Indore Mandi">Indore Mandi</option>
+          </select>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table id="mandiTable">
+            <thead>
+              <tr>
+                <th>Crop Name</th>
+                <th>Mandi / Market</th>
+                <th>Variety</th>
+                <th>Min Price (per Qtl)</th>
+                <th>Max Price (per Qtl)</th>
+                <th>Modal Price (Average)</th>
+                <th>Trend</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Farmer Marketplace Tab (Buyer View) -->
+    <div id="marketplaceTab" class="tab-content" style="display: none;">
+      <div class="card">
+        <h3 style="margin-top: 0; color: #1a4d2e; border-bottom: 2px solid #edf2f7; padding-bottom: 8px; margin-bottom: 20px;">Crops Available for Direct Purchase</h3>
+        <div id="marketplaceListings" class="listing-grid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Sell My Yield Tab (Farmer View) -->
+    <div id="sellTab" class="tab-content" style="display: none;">
+      <div class="card">
+        <h3 style="margin-top: 0; color: #1a4d2e; border-bottom: 2px solid #edf2f7; padding-bottom: 8px; margin-bottom: 20px;">Create Crop Listing</h3>
+        <form id="listingForm">
+          <div class="form-field">
+            <label for="cropSelect">Select Crop Category</label>
+            <select id="cropSelect" required>
+              <option value="" disabled selected>Choose Crop</option>
+              <option value="Wheat (Kanak)">Wheat (Kanak)</option>
+              <option value="Paddy (Rice)">Paddy (Rice)</option>
+              <option value="Mustard (Sarso)">Mustard (Sarso)</option>
+              <option value="Sugarcane">Sugarcane</option>
+              <option value="Potato (Aloo)">Potato (Aloo)</option>
+              <option value="Soybean">Soybean</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="variety">Variety / Quality</label>
+            <input type="text" id="variety" placeholder="e.g. Basmati-1121, Lokwan, Desi" required>
+          </div>
+
+          <div class="form-field" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div>
+              <label for="quantity">Quantity (in Quintals)</label>
+              <input type="number" id="quantity" min="1" placeholder="e.g. 50" required>
+            </div>
+            <div>
+              <label for="price">Expected Price (per Quintal)</label>
+              <input type="number" id="price" min="10" placeholder="e.g. 2500" required>
+              <div id="priceSuggestion" class="price-helper">Enter crop name to see suggested rates.</div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="cropImage">Mock Crop Photo</label>
+            <select id="cropImage" required>
+              <option value="wheat">Wheat Field (Kanak)</option>
+              <option value="rice">Rice Grains (Dhan)</option>
+              <option value="mustard">Mustard Flowers (Sarso)</option>
+              <option value="potato">Harvested Potatoes (Aloo)</option>
+              <option value="vegetables">Green Vegetables</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn">Publish Listing</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="about-footer">
+    <div class="footer-brand"><strong>Kissan Help Desk</strong></div>
+    <div class="copyright">© 2025 Kissan Help Desk — All Rights Reserved</div>
+  </footer>
+
+  <script>
+    const mandiData = [
+      { crop: "Wheat (Kanak)", market: "Karnal Mandi", variety: "Lokwan", min: 2125, max: 2280, modal: 2200, trend: "up" },
+      { crop: "Paddy (Rice)", market: "Karnal Mandi", variety: "Basmati 1121", min: 3800, max: 4200, modal: 4050, trend: "up" },
+      { crop: "Mustard (Sarso)", market: "Bathinda Mandi", variety: "Black Mustard", min: 4900, max: 5200, modal: 5050, trend: "stable" },
+      { crop: "Sugarcane", market: "Meerut Mandi", variety: "Co-0238", min: 340, max: 370, modal: 355, trend: "stable" },
+      { crop: "Potato (Aloo)", market: "Meerut Mandi", variety: "Kufri Jyoti", min: 950, max: 1200, modal: 1100, trend: "up" },
+      { crop: "Soybean", market: "Indore Mandi", variety: "Yellow Soybean", min: 4100, max: 4500, modal: 4320, trend: "up" }
+    ];
+
+    const imageMap = {
+      wheat: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=400&q=80",
+      rice: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80",
+      mustard: "https://images.unsplash.com/photo-1589389480690-c3fa70221617?auto=format&fit=crop&w=400&q=80",
+      potato: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=400&q=80",
+      vegetables: "https://images.unsplash.com/photo-1566385278063-e3a5c7841451?auto=format&fit=crop&w=400&q=80"
+    };
+
+    const currentUser = JSON.parse(localStorage.getItem('kissan_current_user') || 'null');
+
+    // Switch Tabs
+    window.switchTab = function(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      
+      const tabEl = document.getElementById(tabId);
+      if (tabEl) tabEl.style.display = 'block';
+
+      // Find matching button
+      const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => {
+        return b.getAttribute('onclick').includes(tabId);
+      });
+      if (activeBtn) activeBtn.classList.add('active');
+
+      if (tabId === 'marketplaceTab') {
+        renderMarketplaceListings();
+      }
+    };
+
+    // Initialize tabs based on role
+    if (currentUser && currentUser.role === 'Farmer') {
+      document.getElementById('sellYieldTab').style.display = 'block';
+    }
+
+    // --- MANDI PRICES TAB ---
+    const tbody = document.querySelector('#mandiTable tbody');
+    const searchInput = document.getElementById('searchInput');
+    const marketFilter = document.getElementById('marketFilter');
+
+    function renderMandi(items) {
+      tbody.innerHTML = '';
+      if (!items.length) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#999;">No crops found matching your filters.</td></tr>';
+        return;
+      }
+      items.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${item.crop}</strong></td>
+          <td>${item.market}</td>
+          <td>${item.variety}</td>
+          <td>₹${item.min}</td>
+          <td>₹${item.max}</td>
+          <td><strong>₹${item.modal}</strong></td>
+          <td><span class="badge ${item.trend}">${item.trend.toUpperCase()}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterMandi() {
+      const query = searchInput.value.toLowerCase();
+      const market = marketFilter.value;
+      const filtered = mandiData.filter(item => {
+        const matchesQuery = item.crop.toLowerCase().includes(query) || item.variety.toLowerCase().includes(query);
+        const matchesMarket = market === "" || item.market === market;
+        return matchesQuery && matchesMarket;
+      });
+      renderMandi(filtered);
+    }
+    searchInput.addEventListener('input', filterMandi);
+    marketFilter.addEventListener('change', filterMandi);
+    renderMandi(mandiData);
+
+
+    // --- FARMER MARKETPLACE LISTINGS TAB ---
+    function getCropListings() {
+      try {
+        return JSON.parse(localStorage.getItem('kissan_crop_listings') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function renderMarketplaceListings() {
+      const container = document.getElementById('marketplaceListings');
+      const listings = getCropListings();
+      container.innerHTML = '';
+
+      if (listings.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:40px; color:#888;">No crops listed for sale currently. Check back later!</div>';
+        return;
+      }
+
+      listings.slice().reverse().forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'listing-card';
+        const imgUrl = imageMap[item.imageKey] || imageMap.wheat;
+        card.innerHTML = `
+          <div class="listing-img" style="background-image: url('${imgUrl}')"></div>
+          <div class="listing-body">
+            <h4 style="margin:0; font-size:1.15rem; color:#2d3748;">${escapeHtml(item.cropName)}</h4>
+            <div style="font-size:0.82rem; color:#718096; margin-top:2px;">Variety: ${escapeHtml(item.variety)}</div>
+            <div style="font-size:0.85rem; color:#4a5568; margin-top:10px;">Quantity: <strong>${item.quantity} Qtl</strong></div>
+            <div class="listing-price">₹${item.price} <span style="font-size:0.75rem; color:#718096; font-weight:normal;">/ Qtl</span></div>
+            <div style="font-size:0.78rem; color:#a0aec0; margin-bottom:12px;">Listed by: ${escapeHtml(item.farmerName)}</div>
+            <button class="btn" onclick="contactSeller('${item.farmerMobile}')">Contact Seller</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    window.contactSeller = function(mobile) {
+      if (!currentUser) {
+        window.customAlert('Please register or sign in to contact the farmer directly.');
+        return;
+      }
+      
+      const users = JSON.parse(localStorage.getItem('kissan_users') || '[]');
+      const seller = users.find(u => u.mobile === mobile);
+      if (!seller) {
+        window.customAlert('Seller details not found.');
+        return;
+      }
+
+      // Open a beautiful modal card details
+      const msg = `🍀 Farmer details:\n\nName: ${seller.fullName}\nMobile: ${seller.mobile}\nEmail: ${seller.email || 'None'}\nAddress/Village: ${seller.address}`;
+      window.customAlert(msg);
+    };
+
+
+    // --- SELL MY YIELD FORM TAB ---
+    const form = document.getElementById('listingForm');
+    const cropSelect = document.getElementById('cropSelect');
+    const priceInput = document.getElementById('price');
+    const priceHelper = document.getElementById('priceSuggestion');
+
+    cropSelect.addEventListener('change', (e) => {
+      const selectedCrop = e.target.value;
+      const matched = mandiData.find(item => item.crop === selectedCrop);
+      if (matched) {
+        priceHelper.textContent = `💡 Suggested price range: ₹${matched.modal - 250} - ₹${matched.modal + 200} based on Mandi Rates.`;
+        priceHelper.style.color = '#2f855a';
+      } else {
+        priceHelper.textContent = 'Enter crop name to see suggested rates.';
+        priceHelper.style.color = '#718096';
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!currentUser) return;
+
+      const cropName = cropSelect.value;
+      const variety = document.getElementById('variety').value.trim();
+      const quantity = Number(document.getElementById('quantity').value);
+      const price = Number(priceInput.value);
+      const imageKey = document.getElementById('cropImage').value;
+
+      const listings = getCropListings();
+      const newListing = {
+        id: Date.now(),
+        cropName,
+        variety,
+        quantity,
+        price,
+        imageKey,
+        farmerMobile: currentUser.mobile,
+        farmerName: currentUser.fullName,
+        createdAt: new Date().toISOString()
+      };
+
+      listings.push(newListing);
+      localStorage.setItem('kissan_crop_listings', JSON.stringify(listings));
+
+      // 1. Log Activity
+      try {
+        const activities = JSON.parse(localStorage.getItem('kissan_activities_' + currentUser.mobile) || '[]');
+        activities.push({
+          action: `Created Crop Listing for ${cropName} (${quantity} Qtl at ₹${price}/Qtl)`,
+          timestamp: new Date().toISOString()
+        });
+        localStorage.setItem('kissan_activities_' + currentUser.mobile, JSON.stringify(activities));
+      } catch (err) {}
+
+      // 2. Clear and alert
+      form.reset();
+      priceHelper.textContent = 'Enter crop name to see suggested rates.';
+      priceHelper.style.color = '#718096';
+      
+      window.customAlert('Crop listing published successfully!');
+      switchTab('marketplaceTab');
+    });
+
+    function escapeHtml(s) {
+      if (!s) return '';
+      return String(s).replace(/[&<>"']/g, (ch) => {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+      });
+    }
+  </script>
+  <script src="navbar.js"></script>
+</body>
+
+</html>

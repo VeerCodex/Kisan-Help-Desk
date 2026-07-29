@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — Kissan Help Desk</title>
+
+  <!-- Link to the about page CSS (save as about.css in same folder) -->
+  <link rel="stylesheet" href="about.css">
+  <link rel="stylesheet" href="navbar.css">
+</head>
+<body>
+
+  <!-- HERO (compact) -->
+  <header class="hero" id="hero">
+    <div class="overlay"></div>
+    <div class="topbar" id="topbar">
+      <div class="brand" onclick="location.href='index.html'" role="button" aria-label="Home">
+        <img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+             alt="Kissan logo">
+        <div class="sitename">Kissan Help Desk</div>
+      </div>
+      
+      <nav class="main-nav" id="mainNav">
+        <!-- Will be dynamically populated by navbar.js -->
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+
+      <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <!-- Will be dynamically populated by navbar.js -->
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN ABOUT CONTENT (sections inline) -->
+  <main id="about-main">
+
+    <!-- SECTION 1: INTRO (from left) -->
+    <section class="about-section from-left" id="intro">
+      <div class="col-media" style="background-image: url('https://images.unsplash.com/photo-1593113630400-ea4288922497?auto=format&fit=crop&w=600&q=80');"></div>
+      <div class="col-body">
+        <h2>About Kissan Help Desk</h2>
+        <p>Kissan Help Desk is a practical digital platform built to make modern agricultural guidance simple and local. We convert science-based advice into short, actionable steps farmers can use right now.</p>
+        <p class="lead">We cover crop planning, input guidance, weather alerts and local marketplace signals to help farmers take better decisions and reduce risk.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: MISSION (from right) -->
+    <section class="about-section from-right" id="mission">
+      <div class="col-media" style="background-image: url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=600&q=80');"></div>
+      <div class="col-body">
+        <h2>Our Mission</h2>
+        <p>To empower farmers with timely, localized, and easy-to-follow recommendations that increase productivity and income while reducing losses and environmental impact.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 3: SERVICES (from left) -->
+    <section class="about-section from-left" id="services">
+      <div class="col-media" style="background-image: url('https://images.unsplash.com/photo-1589389480690-c3fa70221617?auto=format&fit=crop&w=600&q=80');"></div>
+      <div class="col-body">
+        <h2>What we provide</h2>
+
+        <div class="services-list">
+          <div class="service-card">
+            <h4>Crop Advisory</h4>
+            <p>Seasonal, location-specific crop recommendations: variety, sowing, spacing and irrigation tips.</p>
+          </div>
+          <div class="service-card">
+            <h4>Fertilizer & Pesticide Guidance</h4>
+            <p>Correct dosage, timing and safety steps to protect crops and farmers.</p>
+          </div>
+          <div class="service-card">
+            <h4>Weather Alerts</h4>
+            <p>Short-term forecasts and alerts with clear action points for field operations.</p>
+          </div>
+          <div class="service-card">
+            <h4>Marketplace</h4>
+            <p>Price signals and demand info to help you sell at the right time and place.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: VISION (from right) -->
+    <section class="about-section from-right" id="vision">
+      <div class="col-media" style="background-image: url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=600&q=80');"></div>
+      <div class="col-body">
+        <h2>Our Vision</h2>
+        <p>A future where every farmer has access to clear, science-backed advice — leading to higher yields, lower losses and more sustainable livelihoods.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="about-footer">
+    <div class="footer-brand">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+           alt="logo" class="brand-logo-small">
+      <strong>Kissan Help Desk</strong>
+    </div>
+    <div class="copyright">© 2025 Kissan Help Desk — All Rights Reserved</div>
+  </footer>
+
+  <!-- Link to external JS for animations (save as about.js) -->
+  <script src="about.js"></script>
+  <script src="navbar.js"></script>
+</body>
+</html>

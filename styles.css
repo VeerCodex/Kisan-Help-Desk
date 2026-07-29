@@ -1,0 +1,131 @@
+:root{
+  --hero-h: 70vh;
+  --accent: #fff;
+  --muted: rgba(0,0,0,0.25);
+  --nav-bg: rgba(0,0,0,0.18);
+  --gap: 16px;
+  --anim-duration: 700ms;
+  --hero-fade-distance: 0.8;
+  --page-max-w: 1100px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:system-ui,Segoe UI,Roboto,Arial;background:#fff;color:#111;line-height:1.45;}
+
+/* HERO */
+.hero{
+  height:var(--hero-h);
+  width:100%;
+  position:relative;
+  overflow:hidden;
+  background: url("https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1600&q=80") center center / cover no-repeat;
+  transition: opacity 380ms cubic-bezier(.22,.95,.3,1), transform 430ms cubic-bezier(.22,.95,.3,1);
+  will-change: opacity, transform;
+  z-index:3;
+}
+.overlay{ position:absolute; inset:0; background:var(--muted); z-index:2; pointer-events:none; }
+
+/* TOP NAV */
+.topbar{ position:absolute; top:12px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:center; gap:var(--gap); z-index:12; transition: opacity 300ms ease, transform 300ms ease; will-change:opacity,transform; }
+.brand{ display:flex; align-items:center; gap:12px; background:var(--nav-bg); padding:8px 12px; border-radius:10px; backdrop-filter:blur(6px); cursor:pointer; }
+.logo{ height:44px; filter:drop-shadow(0 6px 12px rgba(0,0,0,0.35)); }
+
+.sitename{ color:white; font-weight:700; font-size:1.05rem; text-shadow:0 4px 12px rgba(0,0,0,0.45); }
+
+.main-nav{ display:flex; gap:18px; transition: opacity 300ms ease; }
+.main-nav a{ color:white; text-decoration:none; padding:8px 10px; border-radius:8px; font-weight:600; transition:.2s; }
+.main-nav a:hover{ background:rgba(255,255,255,0.06); }
+.hamburger{ display:none; font-size:1.3rem; color:white; background:none; border:none; }
+.mobile-menu{ display:none; position:absolute; top:64px; right:12px; background:rgba(0,0,0,0.5); padding:10px; border-radius:8px; z-index:15; }
+.mobile-menu a{ display:block; padding:8px; color:white; text-decoration:none; }
+@media(max-width:900px){ .main-nav{ display:none; } .hamburger{ display:block; } }
+
+/* CONTENT */
+main{ padding:48px 6vw 80px; max-width:var(--page-max-w); margin:0 auto; opacity:10; transform: translateY(14px); transition: opacity 420ms cubic-bezier(.22,.95,.3,1), transform 420ms cubic-bezier(.22,.95,.3,1); will-change:opacity,transform; z-index:1; }
+main.visible{ opacity:1; transform: translateY(0); }
+.section-title{ font-size:1.6rem; margin-bottom:28px; font-weight:700; }
+.features{ display:flex; flex-direction:column; gap:56px; }
+
+.feature{ display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; cursor:pointer; opacity:0; transform:translateY(30px); transition: opacity var(--anim-duration), transform var (--anim-duration); }
+.feature.active{ opacity:1; transform:translateY(0); }
+.media{ height:340px; border-radius:12px; background-size:cover; background-position:center; background-repeat:no-repeat; box-shadow: 0 12px 30px rgba(12,12,12,0.08); overflow:hidden; }
+.text{ padding:18px 8px; }
+.text h3{ margin:0 0 8px; font-size:1.25rem; }
+.text p{ margin:0 0 12px; color:#333; }
+.cta{ padding:8px 12px; background:#0b74ff; color:white; border-radius:8px; text-decoration:none; }
+.feature.alt .media{ order:2; }
+
+@media(max-width:900px){ .feature{ grid-template-columns:1fr; } .feature.alt .media{ order:unset; } .media{ height:240px; } }
+.media img, .media{ transition: transform 420ms ease; }
+.feature:hover .media{ transform: scale(1.03); }
+
+/* FOOTER */
+.footer{ position:relative; margin-top:60px; color:white; padding-top:60px; overflow:hidden; }
+.footer-bg{ position:absolute; inset:0; background-size:cover; background-position:center; z-index:1; }
+.footer-overlay{ position:absolute; inset:0; background:rgba(0,0,0,0.55); z-index:2; }
+
+/* footer content centered and matched width with main */
+.footer-content{
+  position:relative;
+  z-index:5;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:40px;
+  padding:40px 6vw;
+  max-width:var(--page-max-w);
+  margin:0 auto;
+  align-items:start;
+}
+
+/* footer brand - logo + text */
+/* ===== Footer brand alignment fix ===== */
+.footer-brand {           /* side-by-side: image left, text right */
+  align-items: center;      /* vertically center image and text */
+  gap: 10px;                /* space between image and text */
+  /* ensure brand doesn't wrap awkwardly */
+  
+}
+/* Logo sizing and alignment */
+.logo-footer {
+  height: 56px;             /* fixed visual height — change if you want smaller/larger */
+  width: 50px;
+  /* display: block; */
+  object-fit: contain;      
+  /* keep aspect ratio */
+  /* remove rounded corners if they cause mismatch */
+  border-radius: 0;
+  /* small shadow to lift it from overlay */
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.35));
+  /* prevent the image from causing the column to stretch vertically too much */
+  flex-shrink: 0;
+}
+/* Title + paragraph spacing: keep text vertically centered with logo */
+.footer-col h3 {
+  /* margin: 0; */
+  /* font-size: 1.05rem; */
+  /* line-height: 1.05;        slightly tighter so h3 aligns nicely with logo center */
+  color: #fff;
+}
+
+.footer-col p {
+  margin: 6px 0 0;          /* small top gap under the title */
+  color: rgba(255,255,255,0.9);
+  max-width: 360px;         /* stops text running too wide next to logo */
+}
+
+.footer-col ul{ list-style:none; padding:0; margin:0; }
+.footer-col li{ margin-bottom:8px; }
+.footer-col a{ color:white; text-decoration:none; opacity:0.85; transition:0.2s; }
+.footer-col a:hover{ opacity:1; }
+
+.icon{ height:28px; margin-right:10px; filter:invert(1); opacity:0.9; transition:.2s; }
+.icon:hover{ opacity:1; transform:scale(1.1); }
+
+.footer-bottom{ position:relative; z-index:5; text-align:center; padding:16px; background:rgba(0,0,0,0.4); margin:18px auto 0; font-size:0.9rem; }
+
+/* responsive */
+@media(max-width:900px){
+  .footer-content{ grid-template-columns:1fr; text-align:center; padding:30px 6vw; }
+  .footer-brand{ justify-content:center; align-items:center; }
+  .logo-footer{ height:44px; margin-top:0; }
+}

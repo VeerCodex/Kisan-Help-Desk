@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kissan Help Desk</title>
+
+  <!-- Link to external CSS (keep styles.css in same folder) -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="navbar.css">
+  <!-- NOTE: If you store images locally, put them in images/ and update src/background URLs below -->
+</head>
+
+<body>
+
+<header class="hero" id="hero">
+  <div class="overlay"></div>
+
+  <div class="topbar" id="topbar">
+    <div class="brand" onclick="location.href='index.html'" role="button" aria-label="Home">
+      <!-- LOGO: Change src to 'images/logo.png' if you store locally -->
+      <img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+           alt="Kissan logo">
+      <div class="sitename">Kissan Help Desk</div>
+    </div>
+
+    <!-- Main nav: update href to your pages (about.html etc) -->
+    <nav class="main-nav" aria-label="Primary nav" id="mainNav">
+      <a href="about.html">About Us</a>
+      <a href="crop-advisory.html">Crop Advisory</a>
+      <a href="goverment_scheme.html">Govt Schemes</a>
+      <a href="weather.html">Weather</a>
+      <a href="marketplace.html">Marketplace</a>
+      <a href="registration.html">Register</a>
+      <a href="signin.html">Sign In</a>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+
+    <!-- Mobile menu (hidden by default) -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <a href="about.html">About Us</a>
+      <a href="crop-advisory.html">Crop Advisory</a>
+      <a href="goverment_scheme.html">Govt Schemes</a>
+      <a href="weather.html">Weather</a>
+      <a href="marketplace.html">Marketplace</a>
+      <a href="registration.html">Register</a>
+      <a href="signin.html">Sign In</a>
+    </div>
+  </div>
+  
+</header>
+
+<main id="main">
+  <h2 class="section-title">Explore 🌐</h2>
+
+  <div class="features">
+    <!-- BLOCK 1: About Kissan Help Desk -->
+    <article class="feature" data-link="about.html" tabindex="0">
+      <div class="media" style="background-image:url(https://images.unsplash.com/photo-1593113630400-ea4288922497?auto=format&fit=crop&w=600&q=80);"></div>
+      <div class="text">
+        <h3>About Kissan Help Desk</h3>
+        <p>Short intro about the service.</p>
+        <a class="cta" href="about.html">Open</a>
+      </div>
+    </article>
+
+    <!-- BLOCK 2: Crop Advisory -->
+    <article class="feature alt" data-link="crop-advisory.html" tabindex="0">
+      <div class="media" style="background-image:url(https://images.unsplash.com/photo-1592417817098-8f3d6eb19675?auto=format&fit=crop&w=600&q=80);"></div>
+      <div class="text">
+        <h3>Crop Advisory</h3>
+        <p>Expert crop recommendations and localized guidance for farmers.</p>
+        <a class="cta" href="crop-advisory.html">Open</a>
+      </div>
+    </article>
+
+    <!-- BLOCK 3: Fertilizer & Pesticide -->
+    <article class="feature" data-link="crop-advisory.html#fertilizer" tabindex="0">
+      <div class="media" style="background-image:url(https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=600&q=80);"></div>
+      <div class="text">
+        <h3>Fertilizer &amp; Pesticide Guidance</h3>
+        <p>Practical dosage, timing and safety info for inputs.</p>
+        <a class="cta" href="crop-advisory.html#fertilizer">Open</a>
+      </div>
+    </article>
+
+    <!-- BLOCK 4: Weather -->
+    <article class="feature alt" data-link="weather.html" tabindex="0">
+      <div class="media" style="background-image:url('https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=600&q=80');"></div>
+      <div class="text">
+        <h3>Weather</h3>
+        <p>Local weather, alerts and forecasts to plan farming operations.</p>
+        <a class="cta" href="weather.html">Open</a>
+      </div>
+    </article>
+      <div class="features">
+
+    <!-- BLOCK 5: Registration -->
+
+    <article class="feature" data-link="registration.html" tabindex="0">
+      <div class="media" style="background-image:url(https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=600&q=80);"></div>
+      <div class="text">
+        <h3>Registration</h3>
+        <p>Start your journey to better farming — Sign up now.</p>
+        <a class="cta" href="registration.html">Open</a>
+      </div>
+    </article>
+
+    <!-- BLOCK 6: Government Scheme -->
+    <article class="feature alt" data-link="goverment_scheme.html" tabindex="0">
+      <div class="media" style="background-image:url(https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=600&q=80);"></div>
+      <div class="text">
+        <h3>Goverment Scheme</h3>
+        <p>Sarkari Yojna, Har Kisan Tak – Behtar Kal, Behtar Kheti.</p>
+        <a class="cta" href="goverment_scheme.html">Open</a>
+      </div>
+    </article>  
+  </div>
+</main>
+
+<!-- ================= FOOTER (ALIGNED) ================= -->
+<footer class="footer">
+  <!-- FOOTER BACKGROUND: change URL here or move to styles.css -->
+  <div class="footer-bg" style="background-image:url('https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=1600&q=80');"></div>
+  <div class="footer-overlay"></div>
+
+  <div class="footer-content">
+    <!-- Column 1: brand (logo + text) -->
+    <div class="footer-col">
+        <div class="footer-brand">
+        <!-- If you store logo locally: src="images/logo-footer.png" -->
+        <!-- <img class="logo-footer" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->
+        <h3><img class="brand-logo-small" style="width: 50px; height: auto;" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> Kisan Help Desk </h3>
+        <div>
+            <p>Empowering farmers with tools, resources and modern digital advisory.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 2: quick links -->
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="crop-advisory.html">Crop Advisory</a></li>
+        <li><a href="fertilizer.html">Fertilizer &amp; Pesticide</a></li>
+        <li><a href="weather.html">Weather Updates</a></li>
+        <li><a href="marketplace.html">Marketplace</a></li>
+        <li><a href="profile.html">Farmer Profile</a></li>
+      </ul>
+    </div>
+
+    <!-- Column 3: contact -->
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>Email: support@kissanhelpdesk.com</p>
+      <p>Phone: 1800-180-1551</p>
+      <div class="social" aria-hidden="true">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" class="icon" alt="">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="icon" alt="">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" class="icon" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">© 2025 Kissan Help Desk — All Rights Reserved</div>
+</footer>
+
+<!-- Link external JS file (save below as script.js in same folder) -->
+<script src="script.js"></script>
+<script src="navbar.js"></script>
+
+<script src="modal.js" defer></script>
+</body>
+</html>
