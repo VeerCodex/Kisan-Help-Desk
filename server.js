@@ -9,7 +9,7 @@ const Query = require('./models/Query');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/kisan_help_desk';
+const MONGO_URI = process.env.MONGODB_URI || process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/kisan_help_desk';
 
 // Middleware
 app.use(cors());
@@ -182,7 +182,13 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`🚀 Kisan Help Desk Server running on http://localhost:${PORT}`);
-});
+// Start Server if run directly
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Kisan Help Desk Server running on http://localhost:${PORT}`);
+  });
+}
+
+// Export for Vercel Serverless Function
+module.exports = app;
+
