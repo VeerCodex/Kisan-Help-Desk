@@ -187,48 +187,53 @@
       const form = document.getElementById('signinForm');
       const formMsg = document.getElementById('formMsg');
 
-      function getUsers() {
-        try {
-          return JSON.parse(localStorage.getItem('kissan_users') || '[]');
-        } catch (e) {
-          return [];
-        }
-      }
-
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const mobile = document.getElementById('mobile').value.trim();
         const password = document.getElementById('password').value;
 
-        const users = getUsers();
-        const user = users.find(u => u.mobile === mobile);
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Signing in...';
+        formMsg.textContent = '';
 
-        if (!user || user.password !== password) {
-          formMsg.textContent = 'Invalid mobile number or password!';
-          formMsg.style.color = 'crimson';
-          return;
-        }
-
-        // Successfully logged in
-        localStorage.setItem('kissan_current_user', JSON.stringify(user));
-
-        // Add sign-in activity
         try {
-          const activities = JSON.parse(localStorage.getItem('kissan_activities_' + user.mobile) || '[]');
-          activities.push({
-            action: 'Logged in to account',
-            timestamp: new Date().toISOString()
+          // Send request to MongoDB Express API
+          const res = await fetch('/api/signin', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mobile, password })
           });
-          localStorage.setItem('kissan_activities_' + user.mobile, JSON.stringify(activities));
-        } catch (error) {}
 
-        formMsg.textContent = 'Login successful! Redirecting...';
-        formMsg.style.color = 'green';
+          const data = await res.json().catch(() => ({}));
 
-        setTimeout(() => {
-          window.location.href = 'index.html';
-        }, 1200);
+          if (!res.ok) {
+            formMsg.textContent = data.message || 'Invalid mobile number or password!';
+            formMsg.style.color = 'crimson';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Sign In';
+            return;
+          }
+
+          // Successfully logged in via MongoDB
+          localStorage.setItem('kissan_current_user', JSON.stringify(data.user));
+
+          formMsg.textContent = 'Login successful! Redirecting to profile...';
+          formMsg.style.color = 'green';
+
+          setTimeout(() => {
+            window.location.href = 'profile.html';
+          }, 1000);
+
+        } catch (err) {
+          console.error(err);
+          // Fallback to local check if offline
+          formMsg.textContent = 'Network error: ensure server is running on http://localhost:5000';
+          formMsg.style.color = 'crimson';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Sign In';
+        }
       });
     })();
   </script>
