@@ -179,6 +179,9 @@ app.post('/api/query', async (req, res) => {
 
 // Serve frontend index.html for unmatched routes
 app.get('*', (req, res) => {
+  if (req.path.match(/\.(css|js|png|jpg|jpeg|gif|svg|ico|json)$/i)) {
+    return res.status(404).send('Asset file not found');
+  }
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
