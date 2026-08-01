@@ -46,7 +46,7 @@ main.visible{ opacity:1; transform: translateY(0); }
 .section-title{ font-size:1.6rem; margin-bottom:28px; font-weight:700; }
 .features{ display:flex; flex-direction:column; gap:56px; }
 
-.feature{ display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; cursor:pointer; opacity:0; transform:translateY(30px); transition: opacity var(--anim-duration), transform var (--anim-duration); }
+.feature{ display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; cursor:pointer; opacity:1; transform:translateY(0); transition: opacity var(--anim-duration), transform var (--anim-duration); }
 .feature.active{ opacity:1; transform:translateY(0); }
 .media{ height:340px; border-radius:12px; background-size:cover; background-position:center; background-repeat:no-repeat; box-shadow: 0 12px 30px rgba(12,12,12,0.08); overflow:hidden; }
 .text{ padding:18px 8px; }
