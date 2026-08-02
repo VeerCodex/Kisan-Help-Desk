@@ -3,12 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kisan Help Desk</title>
+  <title>Kisan Help Desk — Smart Agriculture & Farmer Support Portal</title>
 
-  <!-- Link to external CSS (keep styles.css in same folder) -->
+  <!-- Google Fonts for Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Link to external CSS -->
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="navbar.css">
-  <!-- NOTE: If you store images locally, put them in images/ and update src/background URLs below -->
 </head>
 
 <body>
@@ -18,13 +22,11 @@
 
   <div class="topbar" id="topbar">
     <div class="brand" onclick="location.href='index.html'" role="button" aria-label="Home">
-      <!-- LOGO: Change src to 'images/logo.png' if you store locally -->
-      <img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-           alt="Kisan logo">
+      <img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Kisan logo">
       <div class="sitename">Kisan Help Desk</div>
     </div>
 
-    <!-- Main nav: update href to your pages (about.html etc) -->
+    <!-- Main nav: populated dynamically by navbar.js -->
     <nav class="main-nav" aria-label="Primary nav" id="mainNav">
       <a href="about.html">About Us</a>
       <a href="crop-advisory.html">Crop Advisory</a>
@@ -37,7 +39,6 @@
 
     <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">☰</button>
 
-    <!-- Mobile menu (hidden by default) -->
     <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
       <a href="about.html">About Us</a>
       <a href="crop-advisory.html">Crop Advisory</a>
@@ -46,6 +47,35 @@
       <a href="marketplace.html">Marketplace</a>
       <a href="registration.html">Register</a>
       <a href="signin.html">Sign In</a>
+    </div>
+  </div>
+
+  <!-- Hero Content Center Banner -->
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="pulse-dot"></span> ✨ Smart Agri-Tech Platform for Farmers
+    </div>
+    
+    <h1 class="hero-title">
+      Empowering Farmers with <span class="gradient-text">Smart Agriculture</span> 🌾
+    </h1>
+    
+    <p class="hero-subtitle">
+      Access real-time weather alerts, expert crop advisories, government scheme guidance, and a direct digital marketplace — all in one place.
+    </p>
+    
+    <div class="hero-actions">
+      <a href="crop-advisory.html" class="hero-btn primary-btn">🌱 Explore Crop Advisory</a>
+      <a href="goverment_scheme.html" class="hero-btn secondary-btn">📜 Government Schemes</a>
+      <a href="weather.html" class="hero-btn glass-btn">🌤️ Live Weather</a>
+    </div>
+
+    <!-- Platform Highlights Pills (Real Features) -->
+    <div class="platform-highlights">
+      <div class="highlight-pill">🌱 <span>Smart Crop Advice</span></div>
+      <div class="highlight-pill">📜 <span>Government Subsidies</span></div>
+      <div class="highlight-pill">🌤️ <span>Real-time Weather</span></div>
+      <div class="highlight-pill">🛒 <span>Farmer Marketplace</span></div>
     </div>
   </div>
   

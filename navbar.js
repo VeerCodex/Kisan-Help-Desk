@@ -176,12 +176,18 @@ function replaceLogosWithSVG() {
   const logos = document.querySelectorAll(logoSelector);
   
   const sproutSvg = `
-    <svg viewBox="0 0 24 24" fill="none" stroke="#2f855a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="logo" style="width: 42px; height: 42px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15)); flex-shrink:0;">
-      <path d="M12 22V12"></path>
-      <path d="M12 12C12 7.58172 15.5817 4 20 4"></path>
-      <path d="M12 15C12 11.6863 9.31371 9 6 9"></path>
-      <path d="M6 9C6 9 9 9 12 12"></path>
-      <path d="M20 4C20 4 17 4 14 7"></path>
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-emblem" style="width: 44px; height: 44px; filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.4)); flex-shrink: 0;">
+      <rect width="48" height="48" rx="14" fill="url(#logo_grad)" />
+      <path d="M24 38V22" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+      <path d="M24 24C24 17 31 13 36 13C36 19 31 25 24 25" fill="#FBBF24" fill-opacity="0.9" stroke="#FFFFFF" stroke-width="2"/>
+      <path d="M24 28C24 22 17 18 12 18C12 24 17 29 24 29" fill="#34D399" stroke="#FFFFFF" stroke-width="2"/>
+      <circle cx="36" cy="13" r="2.5" fill="#F59E0B" />
+      <defs>
+        <linearGradient id="logo_grad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#065F46"/>
+          <stop offset="1" stop-color="#10B981"/>
+        </linearGradient>
+      </defs>
     </svg>
   `;
 
