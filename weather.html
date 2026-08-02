@@ -9,9 +9,9 @@
   <link rel="stylesheet" href="navbar.css">
   <style>
     :root {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      --bg-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-      --accent-color: #38a169;
+      font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, sans-serif;
+      --bg-gradient: linear-gradient(135deg, #091c11 0%, #112d1c 100%);
+      --accent-color: #10b981;
     }
 
     body {
@@ -19,45 +19,38 @@
       display: flex;
       min-height: 100vh;
       flex-direction: column;
-      background: #f0f4f1;
-      color: #333;
+      background: linear-gradient(135deg, #07170d 0%, #0d2417 40%, #06130b 100%);
+      background-attachment: fixed;
+      color: #e2e8f0;
     }
 
     /* Weather Hero Section */
     .weather-header-section {
-      background: var(--bg-gradient);
+      background: linear-gradient(180deg, rgba(6, 32, 18, 0.7) 0%, rgba(4, 16, 9, 0.9) 100%), url('https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
       color: white;
-      padding: 120px 6vw 40px;
+      padding: 120px 6vw 50px;
       text-align: center;
       position: relative;
     }
 
     .weather-container {
-      max-width: 1100px;
+      max-width: 1150px;
       margin: -30px auto 60px;
       padding: 0 20px;
       width: 100%;
       box-sizing: border-box;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 24px;
-    }
-
-    @media (max-width: 900px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
+      position: relative;
+      z-index: 5;
     }
 
     .card {
-      background: white;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-      border: 1px solid rgba(0,0,0,0.02);
+      background: rgba(16, 40, 26, 0.7);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 10px 32px rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       margin-bottom: 24px;
     }
 
@@ -76,105 +69,65 @@
     }
 
     .temp {
-      font-size: 3.5rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 3.8rem;
       font-weight: 800;
-      color: #1a4d2e;
+      color: #34d399;
       margin: 0;
+      text-shadow: 0 0 20px rgba(52, 211, 153, 0.3);
     }
 
     .weather-details {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 16px;
       margin-top: 24px;
-      border-top: 1px solid #eee;
+      border-top: 1px solid rgba(255,255,255,0.1);
       padding-top: 20px;
     }
 
     .detail-item {
       text-align: center;
+      background: rgba(10, 28, 18, 0.6);
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .detail-item span {
       display: block;
       font-size: 0.85rem;
-      color: #777;
+      color: rgba(255,255,255,0.7);
     }
 
     .detail-item strong {
-      font-size: 1.2rem;
-      color: #222;
+      font-size: 1.25rem;
+      color: #ffffff;
       display: block;
       margin-top: 4px;
     }
 
-    .forecast-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .forecast-day {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      background: #f7faf7;
-      border-radius: 10px;
-      font-weight: 600;
-    }
-
-    .forecast-day span.cond {
-      color: #666;
-      font-weight: normal;
-    }
-
-    /* Advisory Card */
-    .advisory-card {
-      border-left: 6px solid #e53e3e;
-      background: #fffaf0;
-    }
-
-    .advisory-card.success {
-      border-left-color: #38a169;
-      background: #f0fff4;
-    }
-
-    .advisory-title {
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #c53030;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .advisory-card.success .advisory-title {
-      color: #2f855a;
-    }
-
     .location-selector {
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 0.95rem;
       font-weight: 600;
       outline: none;
-      background: white;
+      background: rgba(8, 24, 15, 0.85);
+      color: white;
     }
 
     .about-footer {
       margin-top: auto;
       padding: 24px;
-      background: #fff;
+      background: rgba(4, 16, 9, 0.8);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid #eee;
+      border-top: 1px solid rgba(255,255,255,0.1);
       font-size: 0.95rem;
-      color: #666;
+      color: rgba(255,255,255,0.7);
     }
   </style>
 </head>

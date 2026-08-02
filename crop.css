@@ -1,14 +1,21 @@
 /* crop.css — scoped to .crop-page */
 :root{
-  --page-max-w:1100px;
-  --accent:#0b74ff;
-  --muted: rgba(0,0,0,0.24);
+  --page-max-w:1150px;
+  --accent:#10b981;
+  --muted: rgba(0,0,0,0.55);
   --hero-h:36vh;
   --anim-duration:700ms;
 }
 
 /* scope styles */
 .crop-page *{ box-sizing:border-box; }
+.crop-page {
+  font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, sans-serif;
+  color:#e2e8f0;
+  background: linear-gradient(135deg, #07170d 0%, #0d2417 40%, #06130b 100%);
+  background-attachment: fixed;
+  min-height:100vh;
+}
 
 /* HERO */
 .crop-page .hero{
@@ -17,13 +24,15 @@
   position:relative;
   overflow:hidden;
 }
-.crop-page .overlay{ position:absolute; inset:0; background:var(--muted); z-index:1; pointer-events:none; }
+.crop-page .overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(6, 32, 18, 0.7) 0%, rgba(4, 16, 9, 0.9) 100%); z-index:1; pointer-events:none; }
 
 /* MAIN wrapper */
 .crop-page #main{
   max-width:var(--page-max-w);
   margin: -48px auto 80px;
   padding: 24px 6vw;
+  position:relative;
+  z-index:2;
 }
 
 /* crop-section layout */
@@ -32,7 +41,14 @@
   grid-template-columns: 1fr 1fr;
   gap:28px;
   align-items:center;
-  margin: 48px 0;
+  margin: 36px 0;
+  background: rgba(16, 40, 26, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
   opacity:0;
   transform: translateY(18px);
   transition: opacity var(--anim-duration) cubic-bezier(.2,.9,.2,1), transform var(--anim-duration) cubic-bezier(.2,.9,.2,1);
@@ -51,24 +67,25 @@
 .crop-page .crop-section.from-right.active .col-body{ transform: translateX(0); opacity:1; }
 
 /* media and body */
-.crop-page .col-media{ height:260px; border-radius:12px; background-size:cover; background-position:center; box-shadow:0 10px 30px rgba(12,12,12,0.08); }
-.crop-page .col-body h2{ margin:0 0 10px; font-size:1.4rem; color:#0b2b3b; }
-.crop-page .col-body h3{ margin:0 0 8px; font-size:1.15rem; color:#0b2b3b; }
-.crop-page .col-body p{ margin:0 0 12px; color:#333; line-height:1.6; }
-.crop-page .lead{ color:#444; font-size:1rem; margin-bottom:6px; }
+.crop-page .col-media{ height:280px; border-radius:14px; background-size:cover; background-position:center; box-shadow:0 8px 24px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); }
+.crop-page .col-body h2{ margin:0 0 10px; font-family:'Outfit', sans-serif; font-size:1.5rem; color:#ffffff; font-weight:700; }
+.crop-page .col-body h3{ margin:0 0 10px; font-family:'Outfit', sans-serif; font-size:1.3rem; color:#ffffff; font-weight:700; }
+.crop-page .col-body p{ margin:0 0 12px; color:rgba(255,255,255,0.85); line-height:1.6; font-size:0.98rem; }
+.crop-page .lead{ color:#34d399; font-size:1.02rem; margin-bottom:8px; font-weight:600; }
 
 /* lists and buttons */
-.crop-page ul{ margin:8px 0 0 18px; color:#333; }
-.crop-page .btn{ display:inline-block; padding:8px 12px; background:var(--accent); color:#fff; border-radius:8px; text-decoration:none; }
+.crop-page ul{ margin:8px 0 0 18px; color:rgba(255,255,255,0.9); }
+.crop-page ul li{ margin-bottom:6px; }
+.crop-page .btn{ display:inline-block; padding:10px 18px; background:linear-gradient(135deg, #10b981 0%, #059669 100%); color:#fff; border-radius:10px; text-decoration:none; font-weight:700; box-shadow:0 4px 14px rgba(16,185,129,0.35); }
 
 /* footer */
-.crop-page .crop-footer{ max-width:var(--page-max-w); margin:40px auto; padding:24px 6vw; color:#666; font-size:0.95rem; display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
+.crop-page .crop-footer{ max-width:var(--page-max-w); margin:40px auto; padding:24px 6vw; color:rgba(255,255,255,0.7); font-size:0.95rem; display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
 .crop-page .brand-logo-small{ height:36px; }
 
 /* responsive */
 @media(max-width:900px){
   .crop-page .crop-section{ grid-template-columns: 1fr; gap:18px; text-align:left; }
-  .crop-page .col-media{ height:180px; }
+  .crop-page .col-media{ height:200px; }
   .crop-page .crop-footer{ align-items:center; text-align:center; }
 }
   

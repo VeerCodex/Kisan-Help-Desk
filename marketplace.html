@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="navbar.css">
   <style>
     :root {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      --accent-color: #2f855a;
+      font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, sans-serif;
+      --accent-color: #10b981;
     }
 
     body {
@@ -18,61 +18,68 @@
       display: flex;
       min-height: 100vh;
       flex-direction: column;
-      background: #f7faf7;
-      color: #333;
+      background: linear-gradient(135deg, #07170d 0%, #0d2417 40%, #06130b 100%);
+      background-attachment: fixed;
+      color: #e2e8f0;
     }
 
     /* Marketplace Header */
     .market-header-section {
-      background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+      background: linear-gradient(180deg, rgba(6, 32, 18, 0.7) 0%, rgba(4, 16, 9, 0.9) 100%), url('https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
       color: white;
-      padding: 120px 6vw 40px;
+      padding: 120px 6vw 50px;
       text-align: center;
     }
 
     .market-container {
-      max-width: 1100px;
+      max-width: 1150px;
       margin: -30px auto 60px;
       padding: 0 20px;
       width: 100%;
       box-sizing: border-box;
+      position: relative;
+      z-index: 5;
     }
 
     /* Tabs styling */
     .market-tabs {
       display: flex;
-      background: #e2e8f0;
-      padding: 4px;
-      border-radius: 12px;
+      background: rgba(10, 28, 18, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      padding: 6px;
+      border-radius: 14px;
       margin-bottom: 24px;
-      gap: 4px;
+      gap: 6px;
     }
 
     .tab-btn {
       flex: 1;
       padding: 12px;
-      border-radius: 8px;
+      border-radius: 10px;
       background: none;
       border: none;
       font-weight: 700;
       font-size: 0.95rem;
-      color: #4a5568;
+      color: rgba(255, 255, 255, 0.75);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.25s;
     }
 
     .tab-btn.active {
-      background: white;
-      color: #1a4d2e;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
     }
 
     .card {
-      background: white;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-      border: 1px solid rgba(0,0,0,0.02);
+      background: rgba(16, 40, 26, 0.7);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 10px 32px rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       margin-bottom: 24px;
     }
 
@@ -86,22 +93,25 @@
       flex: 1;
       padding: 12px 16px;
       border-radius: 10px;
-      border: 1px solid #ddd;
-      font-size: 1rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(8, 24, 15, 0.85);
+      color: white;
+      font-size: 0.98rem;
       outline: none;
     }
 
     .search-input:focus {
-      border-color: #2f855a;
-      box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.15);
+      border-color: #34d399;
+      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
     }
 
     .select-input {
       padding: 12px 16px;
       border-radius: 10px;
-      border: 1px solid #ddd;
-      font-size: 1rem;
-      background: white;
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 0.98rem;
+      background: rgba(8, 24, 15, 0.85);
+      color: white;
       outline: none;
     }
 
@@ -112,42 +122,45 @@
     }
 
     th, td {
-      padding: 14px 16px;
-      border-bottom: 1px solid #eee;
+      padding: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       text-align: left;
     }
 
     th {
-      background-color: #f7faf7;
-      color: #2f855a;
+      background-color: rgba(8, 24, 15, 0.85);
+      color: #34d399;
       font-weight: 700;
+      font-family: 'Outfit', sans-serif;
     }
 
     tr:hover {
-      background-color: #fafdfb;
+      background-color: rgba(255,255,255,0.04);
     }
 
     .badge {
-      padding: 4px 8px;
+      padding: 4px 10px;
       border-radius: 6px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 700;
       display: inline-block;
     }
 
     .badge.up {
-      background: #c6f6d5;
-      color: #22543d;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.4);
     }
 
     .badge.down {
-      background: #fed7d7;
-      color: #742a2a;
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(248, 113, 113, 0.4);
     }
 
     .badge.stable {
-      background: #edf2f7;
-      color: #4a5568;
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.8);
     }
 
     /* Marketplace grid */
@@ -158,19 +171,20 @@
     }
 
     .listing-card {
-      background: white;
-      border-radius: 12px;
+      background: rgba(10, 28, 18, 0.75);
+      border-radius: 16px;
       overflow: hidden;
-      border: 1px solid #edf2f7;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s;
+      transition: all 0.25s ease;
     }
 
     .listing-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      transform: translateY(-5px);
+      border-color: rgba(52, 211, 153, 0.4);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
     }
 
     .listing-img {
