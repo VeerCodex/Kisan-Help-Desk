@@ -10,7 +10,7 @@
   <style>
     :root {
       font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, sans-serif;
-      --accent-color: #10b981;
+      --accent-color: #f59e0b;
     }
 
     body {
@@ -18,14 +18,14 @@
       display: flex;
       min-height: 100vh;
       flex-direction: column;
-      background: linear-gradient(135deg, #07170d 0%, #0d2417 40%, #06130b 100%);
+      background: linear-gradient(135deg, #0b1329 0%, #111c38 45%, #080d1e 100%);
       background-attachment: fixed;
       color: #e2e8f0;
     }
 
     /* Marketplace Header */
     .market-header-section {
-      background: linear-gradient(180deg, rgba(6, 32, 18, 0.7) 0%, rgba(4, 16, 9, 0.9) 100%), url('https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      background: linear-gradient(180deg, rgba(11, 19, 41, 0.75) 0%, rgba(8, 13, 30, 0.92) 100%), url('https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
       color: white;
       padding: 120px 6vw 50px;
       text-align: center;
@@ -44,7 +44,7 @@
     /* Tabs styling */
     .market-tabs {
       display: flex;
-      background: rgba(10, 28, 18, 0.8);
+      background: rgba(11, 19, 41, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.12);
       backdrop-filter: blur(12px);
       padding: 6px;
@@ -67,13 +67,13 @@
     }
 
     .tab-btn.active {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
       color: white;
-      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
     }
 
     .card {
-      background: rgba(16, 40, 26, 0.7);
+      background: rgba(18, 28, 52, 0.75);
       border-radius: 20px;
       padding: 28px;
       box-shadow: 0 10px 32px rgba(0,0,0,0.35);
@@ -94,15 +94,15 @@
       padding: 12px 16px;
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(8, 24, 15, 0.85);
+      background: rgba(11, 19, 41, 0.85);
       color: white;
       font-size: 0.98rem;
       outline: none;
     }
 
     .search-input:focus {
-      border-color: #34d399;
-      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
+      border-color: #fbbf24;
+      box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
     }
 
     .select-input {
@@ -110,7 +110,7 @@
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.2);
       font-size: 0.98rem;
-      background: rgba(8, 24, 15, 0.85);
+      background: rgba(11, 19, 41, 0.85);
       color: white;
       outline: none;
     }
@@ -128,8 +128,8 @@
     }
 
     th {
-      background-color: rgba(8, 24, 15, 0.85);
-      color: #34d399;
+      background-color: rgba(11, 19, 41, 0.85);
+      color: #fbbf24;
       font-weight: 700;
       font-family: 'Outfit', sans-serif;
     }
@@ -159,8 +159,9 @@
     }
 
     .badge.stable {
-      background: rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.8);
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.4);
     }
 
     /* Marketplace grid */
@@ -171,7 +172,7 @@
     }
 
     .listing-card {
-      background: rgba(10, 28, 18, 0.75);
+      background: rgba(11, 19, 41, 0.8);
       border-radius: 16px;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -183,7 +184,7 @@
 
     .listing-card:hover {
       transform: translateY(-5px);
-      border-color: rgba(52, 211, 153, 0.4);
+      border-color: rgba(245, 158, 11, 0.4);
       box-shadow: 0 12px 30px rgba(0,0,0,0.4);
     }
 

@@ -1,6 +1,6 @@
 :root{
   --page-max-w:1150px;
-  --accent:#10b981;
+  --accent:#f59e0b;
   --muted: rgba(0,0,0,0.55);
   --hero-h:38vh;
   --anim-duration:700ms;
@@ -9,7 +9,7 @@
 body{
   font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, sans-serif;
   color:#e2e8f0;
-  background: linear-gradient(135deg, #07170d 0%, #0d2417 40%, #06130b 100%);
+  background: linear-gradient(135deg, #0b1329 0%, #111c38 45%, #080d1e 100%);
   background-attachment: fixed;
   line-height:1.6;
 }
@@ -22,7 +22,7 @@ body{
   overflow:hidden;
   transition: opacity 360ms ease, transform 420ms ease;
 }
-.overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(6, 32, 18, 0.7) 0%, rgba(4, 16, 9, 0.9) 100%); z-index:1; pointer-events:none; }
+.overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(11, 19, 41, 0.75) 0%, rgba(8, 13, 30, 0.92) 100%); z-index:1; pointer-events:none; }
 
 /* MAIN wrapper */
 main{
@@ -40,7 +40,7 @@ main{
   gap:28px;
   align-items:center;
   margin: 36px 0;
-  background: rgba(16, 40, 26, 0.65);
+  background: rgba(18, 28, 52, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -80,12 +80,12 @@ main{
 }
 .col-body h2{ margin:0 0 12px; font-family:'Outfit', sans-serif; font-size:1.5rem; color:#ffffff; font-weight:700; }
 .col-body p{ margin:0 0 12px; color:rgba(255, 255, 255, 0.85); line-height:1.6; font-size:0.98rem; }
-.lead{ color:#34d399 !important; font-size:1.02rem; margin-bottom:8px; font-weight:600; }
+.lead{ color:#fbbf24 !important; font-size:1.02rem; margin-bottom:8px; font-weight:600; }
 
-/* services list */
+/* services list with multi-colored cards */
 .services-list{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:16px; }
 .service-card{
-  background: rgba(10, 28, 18, 0.75);
+  background: rgba(11, 19, 41, 0.8);
   border-radius:14px;
   padding:16px;
   box-shadow:0 6px 20px rgba(0,0,0,0.25);
@@ -94,8 +94,12 @@ main{
 }
 .service-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(52, 211, 153, 0.4);
+  border-color: rgba(245, 158, 11, 0.4);
 }
+.service-card:nth-child(2):hover { border-color: rgba(52, 211, 153, 0.4); }
+.service-card:nth-child(3):hover { border-color: rgba(96, 165, 250, 0.4); }
+.service-card:nth-child(4):hover { border-color: rgba(251, 146, 60, 0.4); }
+
 .service-card h4{ margin:0 0 8px; font-family:'Outfit', sans-serif; font-size:1.05rem; color:#ffffff; font-weight:700; }
 .service-card p{ margin:0; color:rgba(255, 255, 255, 0.8); font-size:0.9rem; line-height:1.5; }
 
