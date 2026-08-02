@@ -202,28 +202,40 @@ document.addEventListener('DOMContentLoaded', () => {
         navigator.geolocation.getCurrentPosition(
           async (pos) => {
             const { latitude, longitude } = pos.coords;
-            let displayLocation = "My Current Location";
+            let displayLocation = "📍 Tracked Location";
 
-            // Reverse Geocoding via BigDataCloud API (Free)
             try {
-              const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+              // Try Nominatim OpenStreetMap Reverse Geocoding for precise Indian village & district names
+              const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
               if (geoRes.ok) {
                 const geoData = await geoRes.json();
-                const village = geoData.locality || geoData.city || "";
-                const district = geoData.principalSubdivisionCode || geoData.city || "";
-                const state = geoData.principalSubdivision || "";
-                displayLocation = `📍 Village/Locality: ${village || 'Local Area'}, ${state}`;
+                const addr = geoData.address || {};
+                const village = addr.village || addr.suburb || addr.neighbourhood || addr.town || addr.city_district || addr.county || "Local Village Area";
+                const district = addr.state_district || addr.district || addr.county || "";
+                const state = addr.state || "";
+                displayLocation = `📍 Village/Locality: ${village}, ${district ? district + ', ' : ''}${state}`;
               }
             } catch (gErr) {
-              console.warn('Reverse geocode warning:', gErr);
+              console.warn('Nominatim reverse geocode warning, trying fallback:', gErr);
+              try {
+                const bdcRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+                if (bdcRes.ok) {
+                  const bdcData = await bdcRes.json();
+                  const village = bdcData.locality || bdcData.city || "Local Area";
+                  const state = bdcData.principalSubdivision || "";
+                  displayLocation = `📍 Locality: ${village}, ${state}`;
+                }
+              } catch (e2) {
+                console.warn(e2);
+              }
             }
 
             fetchWeather(latitude, longitude, displayLocation);
-            detectBtn.textContent = '📍 Location Tracked';
+            detectBtn.textContent = '📍 Location Tracked!';
           },
           (err) => {
             alert('GPS location access denied or unavailable. Please select your State & District manually.');
-            detectBtn.textContent = '📍 Track My Current Location';
+            detectBtn.textContent = '📍 Track My Current Location & Village';
           }
         );
       } else {
@@ -265,7 +277,7 @@ function updateWeatherUI(data) {
   if (tempEl) tempEl.textContent = `${Math.round(current.temperature_2m)}°C`;
 
   // Condition
-  const codeInfo = WEATHER_CODES[current.weather_code] || { label: "Clear", icon: "🌤️" };
+  const codeInfo = WEATHER_CODES[current.weather_code] || { label: "Clear Sky", icon: "☀️" };
   const condEl = document.getElementById('weatherCond');
   const iconEl = document.getElementById('weatherIcon');
   if (condEl) condEl.textContent = codeInfo.label;
@@ -277,7 +289,7 @@ function updateWeatherUI(data) {
   if (humEl) humEl.textContent = `${current.relative_humidity_2m}%`;
   if (windEl) windEl.textContent = `${Math.round(current.wind_speed_10m)} km/h`;
 
-  // 7-Day Forecast Grid
+  // 7-Day Forecast Grid (Dark Glassmorphism Card Theme)
   const forecastGrid = document.getElementById('forecastGrid');
   if (forecastGrid && daily && daily.time) {
     let html = '';
@@ -291,12 +303,12 @@ function updateWeatherUI(data) {
       const rainProb = daily.precipitation_probability_max[idx] || 0;
 
       html += `
-        <div class="forecast-card" style="background: white; padding: 16px; border-radius: 12px; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.06); border: 1px solid #edf2f7;">
-          <div style="font-weight: 700; color: #1a4d2e; font-size: 0.95rem; margin-bottom: 6px;">${dayName}</div>
-          <div style="font-size: 2rem; margin: 8px 0;">${dayCodeInfo.icon}</div>
-          <div style="font-size: 0.82rem; color: #4a5568; margin-bottom: 6px;">${dayCodeInfo.label}</div>
-          <div style="font-weight: 700; color: #2d3748;">${maxTemp}° <span style="color: #718096; font-weight: 500; font-size: 0.85rem;">/ ${minTemp}°</span></div>
-          <div style="font-size: 0.78rem; color: #3182ce; margin-top: 6px;">🌧️ ${rainProb}% Rain</div>
+        <div class="forecast-card" style="background: rgba(18, 28, 52, 0.85); padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 6px 20px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(12px);">
+          <div style="font-weight: 700; color: #fbbf24; font-size: 1rem; margin-bottom: 6px; font-family: 'Outfit', sans-serif;">${dayName}</div>
+          <div style="font-size: 2.2rem; margin: 8px 0;">${dayCodeInfo.icon}</div>
+          <div style="font-size: 0.88rem; color: rgba(255,255,255,0.85); margin-bottom: 8px;">${dayCodeInfo.label}</div>
+          <div style="font-weight: 700; color: #ffffff; font-size: 1.05rem;">${maxTemp}° <span style="color: rgba(255,255,255,0.6); font-weight: 500; font-size: 0.88rem;">/ ${minTemp}°</span></div>
+          <div style="font-size: 0.85rem; color: #60a5fa; margin-top: 8px; font-weight: 600;">🌧️ ${rainProb}% Rain</div>
         </div>
       `;
     });
