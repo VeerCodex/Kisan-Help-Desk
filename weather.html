@@ -213,24 +213,39 @@
     <div class="card" style="margin-bottom: 24px;">
       <div class="flex-space">
         <div>
-          <h2 id="locationTitle" style="margin: 0 0 4px; color: #1a4d2e; font-size: 1.6rem; font-weight: 800;">Delhi / NCR</h2>
-          <span style="color: #666; font-size: 0.9rem;">🟢 Live Weather Data Powered by Open-Meteo API</span>
+          <h2 id="locationTitle" style="margin: 0 0 4px; color: #1a4d2e; font-size: 1.6rem; font-weight: 800;">Ludhiana, Punjab</h2>
+          <span style="color: #666; font-size: 0.9rem;">🟢 Live Weather Data Powered by Open-Meteo & GPS Geocoding Radar</span>
         </div>
         <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-          <select id="districtSelect" class="location-selector">
-            <option value="delhi" selected>Delhi / NCR</option>
-            <option value="ludhiana">Ludhiana (Punjab)</option>
-            <option value="karnal">Karnal (Haryana)</option>
-            <option value="meerut">Meerut (Uttar Pradesh)</option>
-            <option value="agra">Agra (Uttar Pradesh)</option>
-            <option value="indore">Indore (Madhya Pradesh)</option>
-            <option value="jaipur">Jaipur (Rajasthan)</option>
-            <option value="patna">Patna (Bihar)</option>
-            <option value="ahmedabad">Ahmedabad (Gujarat)</option>
-            <option value="pune">Pune (Maharashtra)</option>
+          <select id="stateSelect" class="location-selector" style="padding: 10px 14px; font-weight: 700; border: 1px solid #cbd5e0; border-radius: 8px;">
+            <option value="punjab" selected>Punjab</option>
+            <option value="haryana">Haryana</option>
+            <option value="up">Uttar Pradesh</option>
+            <option value="mp">Madhya Pradesh</option>
+            <option value="rajasthan">Rajasthan</option>
+            <option value="bihar">Bihar</option>
+            <option value="maharashtra">Maharashtra</option>
+            <option value="gujarat">Gujarat</option>
+            <option value="westbengal">West Bengal</option>
+            <option value="tamilnadu">Tamil Nadu</option>
+            <option value="karnataka">Karnataka</option>
+            <option value="andhra">Andhra Pradesh</option>
+            <option value="telangana">Telangana</option>
+            <option value="kerala">Kerala</option>
+            <option value="odisha">Odisha</option>
+            <option value="assam">Assam</option>
+            <option value="hp">Himachal Pradesh</option>
+            <option value="uttarakhand">Uttarakhand</option>
+            <option value="chhattisgarh">Chhattisgarh</option>
+            <option value="jharkhand">Jharkhand</option>
           </select>
-          <button id="detectLocationBtn" class="btn" style="background: #2f855a; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;">
-            📍 Detect My Location
+
+          <select id="districtSelect" class="location-selector" style="padding: 10px 14px; font-weight: 700; border: 1px solid #cbd5e0; border-radius: 8px;">
+            <!-- Loaded dynamically based on State selection -->
+          </select>
+
+          <button id="detectLocationBtn" class="btn" style="background: linear-gradient(135deg, #2f855a 0%, #276749 100%); color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(47,133,90,0.3);">
+            📍 Track My Current Location &amp; Village
           </button>
         </div>
       </div>

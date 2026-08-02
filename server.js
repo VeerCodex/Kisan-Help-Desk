@@ -255,6 +255,42 @@ app.get('/api/mandi-prices', (req, res) => {
         { commodity: "Maize (Makka)", variety: "Yellow", minPrice: 1900, maxPrice: 2100, modalPrice: 2000, trend: "⬆️" },
         { commodity: "Makhana", variety: "Raw Grade A", minPrice: 14000, maxPrice: 18500, modalPrice: 16200, trend: "⬆️" }
       ]
+    },
+    "maharashtra": {
+      "pune": [
+        { commodity: "Onion (Pyaz)", variety: "Nashik Red", minPrice: 1600, maxPrice: 2400, modalPrice: 2050, trend: "⬆️" },
+        { commodity: "Cotton (Kapas)", variety: "Medium", minPrice: 6850, maxPrice: 7450, modalPrice: 7180, trend: "⬆️" },
+        { commodity: "Soybean", variety: "Yellow", minPrice: 4350, maxPrice: 4800, modalPrice: 4600, trend: "➡️" },
+        { commodity: "Turmeric (Haldi)", variety: "Selam", minPrice: 11500, maxPrice: 15200, modalPrice: 13400, trend: "⬆️" }
+      ]
+    },
+    "gujarat": {
+      "ahmedabad": [
+        { commodity: "Groundnut (Moongphali)", variety: "Bold", minPrice: 6200, maxPrice: 7100, modalPrice: 6650, trend: "⬆️" },
+        { commodity: "Cotton (Kapas)", variety: "Shankar 6", minPrice: 6900, maxPrice: 7550, modalPrice: 7250, trend: "⬆️" },
+        { commodity: "Castor Seed (Arandi)", variety: "Hybrid", minPrice: 5600, maxPrice: 6100, modalPrice: 5850, trend: "➡️" }
+      ]
+    },
+    "westbengal": {
+      "kolkata": [
+        { commodity: "Rice (Chawal)", variety: "Minikit", minPrice: 3400, maxPrice: 3850, modalPrice: 3650, trend: "⬆️" },
+        { commodity: "Jute (Patsan)", variety: "TD-5", minPrice: 5100, maxPrice: 5650, modalPrice: 5400, trend: "➡️" },
+        { commodity: "Potato (Aaloo)", variety: "Jyoti", minPrice: 1450, maxPrice: 1800, modalPrice: 1620, trend: "⬇️" }
+      ]
+    },
+    "tamilnadu": {
+      "chennai": [
+        { commodity: "Paddy (Dhaan)", variety: "ADT 37", minPrice: 2200, maxPrice: 2450, modalPrice: 2320, trend: "⬆️" },
+        { commodity: "Coconut (Nariyal)", variety: "Grade 1", minPrice: 2800, maxPrice: 3400, modalPrice: 3100, trend: "⬆️" },
+        { commodity: "Banana (Kela)", variety: "Poovan", minPrice: 1800, maxPrice: 2400, modalPrice: 2150, trend: "➡️" }
+      ]
+    },
+    "karnataka": {
+      "bengaluru": [
+        { commodity: "Ragi (Finger Millet)", variety: "Local", minPrice: 3200, maxPrice: 3800, modalPrice: 3500, trend: "⬆️" },
+        { commodity: "Red Gram (Tur)", variety: "Maruti", minPrice: 9200, maxPrice: 10600, modalPrice: 9900, trend: "⬆️" },
+        { commodity: "Tomato (Tamatar)", variety: "Hybrid", minPrice: 1800, maxPrice: 2600, modalPrice: 2200, trend: "⬇️" }
+      ]
     }
   };
 
@@ -262,7 +298,17 @@ app.get('/api/mandi-prices', (req, res) => {
   const district = (req.query.district || 'ludhiana').toLowerCase();
 
   const stateData = mandiDatabase[state] || mandiDatabase['punjab'];
-  const districtData = stateData[district] || Object.values(stateData)[0] || [];
+  let districtData = stateData[district] || Object.values(stateData)[0];
+
+  // Smart Fallback Commodity Generator if specific district commodity list isn't listed
+  if (!districtData) {
+    districtData = [
+      { commodity: "Wheat (Gehu)", variety: "FAQ Grade", minPrice: 2250, maxPrice: 2420, modalPrice: 2335, trend: "⬆️" },
+      { commodity: "Paddy (Dhaan)", variety: "Common Grade", minPrice: 2183, maxPrice: 2300, modalPrice: 2240, trend: "➡️" },
+      { commodity: "Mustard (Sarson)", variety: "Yellow", minPrice: 5200, maxPrice: 5700, modalPrice: 5450, trend: "⬆️" },
+      { commodity: "Potato (Aaloo)", variety: "Local", minPrice: 1400, maxPrice: 1800, modalPrice: 1600, trend: "⬇️" }
+    ];
+  }
 
   res.status(200).json({
     state: req.query.state || 'Punjab',

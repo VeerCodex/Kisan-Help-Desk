@@ -302,29 +302,49 @@
         <h3 style="margin-top: 0; color: #1a4d2e; font-size: 1.3rem; font-weight: 800; margin-bottom: 16px;">🌾 Live State & District Mandi Commodity Rates</h3>
         
         <!-- State & District Filters Bar -->
-        <div class="search-filter-box" style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; background: #f0fff4; padding: 16px; border-radius: 12px; border: 1px solid #c6f6d5;">
-          <div style="flex: 1; min-width: 180px;">
+        <div class="search-filter-box" style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; background: #f0fff4; padding: 16px; border-radius: 12px; border: 1px solid #c6f6d5; align-items: flex-end;">
+          <div style="flex: 1; min-width: 170px;">
             <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #2f855a; margin-bottom: 4px;">Select State</label>
             <select id="stateSelect" class="select-input" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0; font-weight: 600;">
               <option value="punjab" selected>Punjab</option>
-              <option value="up">Uttar Pradesh</option>
               <option value="haryana">Haryana</option>
+              <option value="up">Uttar Pradesh</option>
               <option value="mp">Madhya Pradesh</option>
               <option value="rajasthan">Rajasthan</option>
               <option value="bihar">Bihar</option>
+              <option value="maharashtra">Maharashtra</option>
+              <option value="gujarat">Gujarat</option>
+              <option value="westbengal">West Bengal</option>
+              <option value="tamilnadu">Tamil Nadu</option>
+              <option value="karnataka">Karnataka</option>
+              <option value="andhra">Andhra Pradesh</option>
+              <option value="telangana">Telangana</option>
+              <option value="kerala">Kerala</option>
+              <option value="odisha">Odisha</option>
+              <option value="assam">Assam</option>
+              <option value="hp">Himachal Pradesh</option>
+              <option value="uttarakhand">Uttarakhand</option>
+              <option value="chhattisgarh">Chhattisgarh</option>
+              <option value="jharkhand">Jharkhand</option>
             </select>
           </div>
 
-          <div style="flex: 1; min-width: 180px;">
+          <div style="flex: 1; min-width: 170px;">
             <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #2f855a; margin-bottom: 4px;">Select District / Mandi</label>
             <select id="districtSelect" class="select-input" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0; font-weight: 600;">
               <!-- Loaded dynamically based on selected state -->
             </select>
           </div>
 
-          <div style="flex: 2; min-width: 220px;">
-            <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #2f855a; margin-bottom: 4px;">Search Crop / Commodity</label>
-            <input type="text" id="searchInput" class="search-input" placeholder="Search crop (e.g. Wheat, Rice, Potato)..." style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0;">
+          <div style="flex: 1.5; min-width: 200px;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #2f855a; margin-bottom: 4px;">Search Crop</label>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search (Wheat, Rice, Potato)..." style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0;">
+          </div>
+
+          <div>
+            <button id="detectMandiGpsBtn" class="btn" style="background: #2f855a; color: white; border: none; padding: 11px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; white-space: nowrap;">
+              📍 Track Current Location Mandi
+            </button>
           </div>
         </div>
 
@@ -461,16 +481,31 @@
 
     // --- MANDI PRICES TAB API LOGIC ---
     const STATE_DISTRICTS = {
-      punjab: [ { val: "ludhiana", label: "Ludhiana Mandi" }, { val: "amritsar", label: "Amritsar Mandi" }, { val: "bathinda", label: "Bathinda Mandi" } ],
-      up: [ { val: "meerut", label: "Meerut Mandi" }, { val: "agra", label: "Agra Mandi" }, { val: "kanpur", label: "Kanpur Mandi" } ],
-      haryana: [ { val: "karnal", label: "Karnal Mandi" }, { val: "hisar", label: "Hisar Mandi" } ],
-      mp: [ { val: "indore", label: "Indore Mandi" }, { val: "ujjain", label: "Ujjain Mandi" } ],
-      rajasthan: [ { val: "jaipur", label: "Jaipur Mandi" } ],
-      bihar: [ { val: "patna", label: "Patna Mandi" } ]
+      punjab: [ { val: "ludhiana", label: "Ludhiana Mandi" }, { val: "amritsar", label: "Amritsar Mandi" }, { val: "bathinda", label: "Bathinda Mandi" }, { val: "jalandhar", label: "Jalandhar Mandi" }, { val: "patiala", label: "Patiala Mandi" } ],
+      haryana: [ { val: "karnal", label: "Karnal Mandi" }, { val: "hisar", label: "Hisar Mandi" }, { val: "ambala", label: "Ambala Mandi" }, { val: "rohtak", label: "Rohtak Mandi" }, { val: "sirsa", label: "Sirsa Mandi" } ],
+      up: [ { val: "meerut", label: "Meerut Mandi" }, { val: "agra", label: "Agra Mandi" }, { val: "kanpur", label: "Kanpur Mandi" }, { val: "lucknow", label: "Lucknow Mandi" }, { val: "varanasi", label: "Varanasi Mandi" }, { val: "aligarh", label: "Aligarh Mandi" } ],
+      mp: [ { val: "indore", label: "Indore Mandi" }, { val: "ujjain", label: "Ujjain Mandi" }, { val: "bhopal", label: "Bhopal Mandi" }, { val: "gwalior", label: "Gwalior Mandi" }, { val: "jabalpur", label: "Jabalpur Mandi" } ],
+      rajasthan: [ { val: "jaipur", label: "Jaipur Mandi" }, { val: "jodhpur", label: "Jodhpur Mandi" }, { val: "kota", label: "Kota Mandi" }, { val: "bikaner", label: "Bikaner Mandi" } ],
+      bihar: [ { val: "patna", label: "Patna Mandi" }, { val: "gaya", label: "Gaya Mandi" }, { val: "muzaffarpur", label: "Muzaffarpur Mandi" }, { val: "bhagalpur", label: "Bhagalpur Mandi" } ],
+      maharashtra: [ { val: "pune", label: "Pune Mandi" }, { val: "nashik", label: "Nashik Mandi" }, { val: "nagpur", label: "Nagpur Mandi" }, { val: "aurangabad", label: "Chhatrapati Sambhajinagar Mandi" } ],
+      gujarat: [ { val: "ahmedabad", label: "Ahmedabad Mandi" }, { val: "rajkot", label: "Rajkot Mandi" }, { val: "surat", label: "Surat Mandi" }, { val: "junagadh", label: "Junagadh Mandi" } ],
+      westbengal: [ { val: "kolkata", label: "Kolkata Mandi" }, { val: "burdwan", label: "Burdwan Mandi" }, { val: "murshidabad", label: "Murshidabad Mandi" } ],
+      tamilnadu: [ { val: "chennai", label: "Chennai Mandi" }, { val: "coimbatore", label: "Coimbatore Mandi" }, { val: "madurai", label: "Madurai Mandi" } ],
+      karnataka: [ { val: "bengaluru", label: "Bengaluru Mandi" }, { val: "mysuru", label: "Mysuru Mandi" }, { val: "hubballi", label: "Hubballi Mandi" } ],
+      andhra: [ { val: "vijayawada", label: "Vijayawada Mandi" }, { val: "visakhapatnam", label: "Visakhapatnam Mandi" }, { val: "guntur", label: "Guntur Mandi" } ],
+      telangana: [ { val: "hyderabad", label: "Hyderabad Mandi" }, { val: "warangal", label: "Warangal Mandi" } ],
+      kerala: [ { val: "thiruvananthapuram", label: "Thiruvananthapuram Mandi" }, { val: "kochi", label: "Kochi Mandi" }, { val: "kozhikode", label: "Kozhikode Mandi" } ],
+      odisha: [ { val: "bhubaneswar", label: "Bhubaneswar Mandi" }, { val: "cuttack", label: "Cuttack Mandi" }, { val: "sambalpur", label: "Sambalpur Mandi" } ],
+      assam: [ { val: "guwahati", label: "Guwahati Mandi" }, { val: "jorhat", label: "Jorhat Mandi" } ],
+      hp: [ { val: "shimla", label: "Shimla Mandi" }, { val: "mandi", label: "Mandi District Mandi" } ],
+      uttarakhand: [ { val: "dehradun", label: "Dehradun Mandi" }, { val: "haridwar", label: "Haridwar Mandi" } ],
+      chhattisgarh: [ { val: "raipur", label: "Raipur Mandi" }, { val: "bilaspur", label: "Bilaspur Mandi" } ],
+      jharkhand: [ { val: "ranchi", label: "Ranchi Mandi" }, { val: "jamshedpur", label: "Jamshedpur Mandi" } ]
     };
 
     const stateSelect = document.getElementById('stateSelect');
     const districtSelect = document.getElementById('districtSelect');
+    const detectMandiGpsBtn = document.getElementById('detectMandiGpsBtn');
     const tbody = document.querySelector('#mandiTable tbody');
     const searchInput = document.getElementById('searchInput');
     let currentMandiPrices = [];
@@ -535,6 +570,32 @@
       if (searchInput) {
         searchInput.addEventListener('input', () => {
           renderMandi(currentMandiPrices);
+        });
+      }
+
+      if (detectMandiGpsBtn) {
+        detectMandiGpsBtn.addEventListener('click', () => {
+          if (navigator.geolocation) {
+            detectMandiGpsBtn.textContent = '📍 Tracking Location...';
+            navigator.geolocation.getCurrentPosition(async (pos) => {
+              try {
+                const { latitude, longitude } = pos.coords;
+                const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+                if (geoRes.ok) {
+                  const geoData = await geoRes.json();
+                  const localityName = geoData.locality || geoData.city || 'Your Area';
+                  alert(`📍 Location Tracked!\nVillage/Locality: ${localityName}\nState: ${geoData.principalSubdivision}`);
+                }
+              } catch (e) {
+                console.warn(e);
+              }
+              detectMandiGpsBtn.textContent = '📍 Track Current Location Mandi';
+              fetchMandiPrices();
+            }, () => {
+              alert('GPS Access Denied. Showing selected district mandi rates.');
+              detectMandiGpsBtn.textContent = '📍 Track Current Location Mandi';
+            });
+          }
         });
       }
 
