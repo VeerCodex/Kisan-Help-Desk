@@ -299,32 +299,49 @@
     <!-- Live Mandi Tab -->
     <div id="mandiTab" class="tab-content">
       <div class="card">
-        <div class="search-filter-box">
-          <input type="text" id="searchInput" class="search-input" placeholder="Search crops (e.g. Wheat, Rice, Potato)...">
-          <select id="marketFilter" class="select-input">
-            <option value="">All Markets</option>
-            <option value="Karnal Mandi">Karnal Mandi</option>
-            <option value="Bathinda Mandi">Bathinda Mandi</option>
-            <option value="Meerut Mandi">Meerut Mandi</option>
-            <option value="Indore Mandi">Indore Mandi</option>
-          </select>
+        <h3 style="margin-top: 0; color: #1a4d2e; font-size: 1.3rem; font-weight: 800; margin-bottom: 16px;">🌾 Live State & District Mandi Commodity Rates</h3>
+        
+        <!-- State & District Filters Bar -->
+        <div class="search-filter-box" style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; background: #f0fff4; padding: 16px; border-radius: 12px; border: 1px solid #c6f6d5;">
+          <div style="flex: 1; min-width: 180px;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #2f855a; margin-bottom: 4px;">Select State</label>
+            <select id="stateSelect" class="select-input" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0; font-weight: 600;">
+              <option value="punjab" selected>Punjab</option>
+              <option value="up">Uttar Pradesh</option>
+              <option value="haryana">Haryana</option>
+              <option value="mp">Madhya Pradesh</option>
+              <option value="rajasthan">Rajasthan</option>
+              <option value="bihar">Bihar</option>
+            </select>
+          </div>
+
+          <div style="flex: 1; min-width: 180px;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #2f855a; margin-bottom: 4px;">Select District / Mandi</label>
+            <select id="districtSelect" class="select-input" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0; font-weight: 600;">
+              <!-- Loaded dynamically based on selected state -->
+            </select>
+          </div>
+
+          <div style="flex: 2; min-width: 220px;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #2f855a; margin-bottom: 4px;">Search Crop / Commodity</label>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search crop (e.g. Wheat, Rice, Potato)..." style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0;">
+          </div>
         </div>
 
         <div style="overflow-x: auto;">
           <table id="mandiTable">
             <thead>
-              <tr>
-                <th>Crop Name</th>
-                <th>Mandi / Market</th>
-                <th>Variety</th>
-                <th>Min Price (per Qtl)</th>
-                <th>Max Price (per Qtl)</th>
-                <th>Modal Price (Average)</th>
-                <th>Trend</th>
+              <tr style="background: #f7faf7; color: #1a4d2e;">
+                <th>Commodity Name</th>
+                <th>Variety / Grade</th>
+                <th>Min Price (₹/Qtl)</th>
+                <th>Max Price (₹/Qtl)</th>
+                <th>Modal Price (₹/Qtl)</th>
+                <th>Price Trend</th>
               </tr>
             </thead>
             <tbody>
-              <!-- Loaded dynamically -->
+              <!-- Loaded dynamically from API -->
             </tbody>
           </table>
         </div>
@@ -442,44 +459,89 @@
       document.getElementById('sellYieldTab').style.display = 'block';
     }
 
-    // --- MANDI PRICES TAB ---
+    // --- MANDI PRICES TAB API LOGIC ---
+    const STATE_DISTRICTS = {
+      punjab: [ { val: "ludhiana", label: "Ludhiana Mandi" }, { val: "amritsar", label: "Amritsar Mandi" }, { val: "bathinda", label: "Bathinda Mandi" } ],
+      up: [ { val: "meerut", label: "Meerut Mandi" }, { val: "agra", label: "Agra Mandi" }, { val: "kanpur", label: "Kanpur Mandi" } ],
+      haryana: [ { val: "karnal", label: "Karnal Mandi" }, { val: "hisar", label: "Hisar Mandi" } ],
+      mp: [ { val: "indore", label: "Indore Mandi" }, { val: "ujjain", label: "Ujjain Mandi" } ],
+      rajasthan: [ { val: "jaipur", label: "Jaipur Mandi" } ],
+      bihar: [ { val: "patna", label: "Patna Mandi" } ]
+    };
+
+    const stateSelect = document.getElementById('stateSelect');
+    const districtSelect = document.getElementById('districtSelect');
     const tbody = document.querySelector('#mandiTable tbody');
     const searchInput = document.getElementById('searchInput');
-    const marketFilter = document.getElementById('marketFilter');
+    let currentMandiPrices = [];
+
+    function populateDistricts(state) {
+      const districts = STATE_DISTRICTS[state] || STATE_DISTRICTS['punjab'];
+      districtSelect.innerHTML = districts.map(d => `<option value="${d.val}">${d.label}</option>`).join('');
+    }
+
+    async function fetchMandiPrices() {
+      const state = stateSelect.value;
+      const district = districtSelect.value;
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#2f855a; font-weight:700; padding:20px;">Fetching live mandi rates...</td></tr>';
+
+      try {
+        const res = await fetch(`/api/mandi-prices?state=${state}&district=${district}`);
+        const data = await res.json();
+        currentMandiPrices = data.prices || [];
+        renderMandi(currentMandiPrices);
+      } catch (err) {
+        console.error('Mandi API error:', err);
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:crimson;">Failed to fetch live mandi prices.</td></tr>';
+      }
+    }
 
     function renderMandi(items) {
+      const query = (searchInput.value || '').toLowerCase();
+      const filtered = items.filter(item => 
+        item.commodity.toLowerCase().includes(query) || item.variety.toLowerCase().includes(query)
+      );
+
       tbody.innerHTML = '';
-      if (!items.length) {
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#999;">No crops found matching your filters.</td></tr>';
+      if (!filtered.length) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#999; padding:20px;">No commodities match your search query.</td></tr>';
         return;
       }
-      items.forEach(item => {
+
+      filtered.forEach(item => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><strong>${item.crop}</strong></td>
-          <td>${item.market}</td>
+          <td><strong style="color:#1a4d2e; font-size:1rem;">${item.commodity}</strong></td>
           <td>${item.variety}</td>
-          <td>₹${item.min}</td>
-          <td>₹${item.max}</td>
-          <td><strong>₹${item.modal}</strong></td>
-          <td><span class="badge ${item.trend}">${item.trend.toUpperCase()}</span></td>
+          <td>₹${item.minPrice}</td>
+          <td>₹${item.maxPrice}</td>
+          <td><strong style="color:#2b6cb0; font-size:1.05rem;">₹${item.modalPrice}</strong></td>
+          <td><span style="font-size:1.1rem;">${item.trend}</span></td>
         `;
         tbody.appendChild(tr);
       });
     }
 
-    function filterMandi() {
-      const query = searchInput.value.toLowerCase();
-      const market = marketFilter.value;
-      const filtered = mandiData.filter(item => {
-        const matchesQuery = item.crop.toLowerCase().includes(query) || item.variety.toLowerCase().includes(query);
-        const matchesMarket = market === "" || item.market === market;
-        return matchesQuery && matchesMarket;
+    if (stateSelect && districtSelect) {
+      stateSelect.addEventListener('change', () => {
+        populateDistricts(stateSelect.value);
+        fetchMandiPrices();
       });
-      renderMandi(filtered);
+
+      districtSelect.addEventListener('change', () => {
+        fetchMandiPrices();
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          renderMandi(currentMandiPrices);
+        });
+      }
+
+      // Init Mandi Tab
+      populateDistricts('punjab');
+      fetchMandiPrices();
     }
-    searchInput.addEventListener('input', filterMandi);
-    marketFilter.addEventListener('change', filterMandi);
     renderMandi(mandiData);
 
 
