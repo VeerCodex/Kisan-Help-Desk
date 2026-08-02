@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* Global Font Override */
+*, body, html, input, button, select, textarea {
+  font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, sans-serif !important;
+}
+
 /* navbar.css - Unified navigation bar styling with premium green-themed glassmorphism */
 
 :root {

@@ -229,16 +229,15 @@ function updateAuthLinks() {
     userLinks = `
       <a href="query.html">Q&A Support</a>
       <a href="profile.html">Profile</a>
-      <a href="dashboard.html">Dashboard</a>
       <div class="notif-wrapper" style="position:relative; display:inline-block; align-self:center; margin:0 4px;">
-        <button id="notifBell" onclick="window.toggleNotifications(event)" style="background:none; border:none; color:white; font-size:1.25rem; cursor:pointer; position:relative; display:flex; align-items:center; padding:8px;">
-          🔔${badgeHtml}
+        <button id="notifBell" onclick="window.toggleNotifications(event)" style="background:none; border:none; color:var(--text-dim); font-size:0.95rem; font-weight:600; font-family:inherit; cursor:pointer; position:relative; display:flex; align-items:center; padding:8px 12px; border-radius:8px; transition:all 0.2s;">
+          Notification${badgeHtml}
         </button>
         <div id="notifDropdown" class="notif-dropdown" style="display:none; position:absolute; right:0; top:45px; background:white; color:#333; width:285px; max-height:320px; overflow-y:auto; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.18); border:1px solid #e2e8f0; z-index:99999;">
           <!-- Rendered dynamically -->
         </div>
       </div>
-      <a href="#" id="signOutBtn" onclick="window.handleSignOut(event)">Sign Out (${escapeHtml(currentUser.fullName.split(' ')[0])})</a>
+      <a href="#" id="signOutBtn" onclick="window.handleSignOut(event)">Sign Out</a>
     `;
   } else {
     userLinks = `
